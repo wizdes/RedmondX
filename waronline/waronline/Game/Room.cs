@@ -11,21 +11,21 @@ namespace waronline.Game
         /// <summary>
         /// Gets or sets the room id.
         /// </summary>
-        string RoomId { get; set; }
+        public string RoomId { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the room.
         /// </summary>
-        string RoomName { get; set; }
+        public string RoomName { get; set; }
 
         /// <summary>
         /// Gets or sets the username of the creator of the room.
         /// </summary>
-        string CreatedBy { get; set; }
+        public string CreatedBy { get; set; }
 
         /// <summary>
         /// Gets or sets the list of users present in the room.
         /// </summary>
-        IList<string> UsersInRoom { get; set; }
+        public IList<string> UsersInRoom { get; set; }
     }
 }

@@ -46,7 +46,7 @@ namespace waronline.Transport
         /// <returns></returns>
         public IList<IRoom> ViewRooms(IList<string> friendNames) 
         {
-            return new List<IRoom>();
+            return new List<IRoom>() { new Room() { RoomName = "Testing" }};
         }
 
         /// <summary>

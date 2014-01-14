@@ -1,0 +1,73 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="waronline.MainMenu"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <phone:Panorama HorizontalAlignment="Stretch" Margin="10,10,0,0" Title="Hearts" VerticalAlignment="Stretch" Grid.RowSpan="2">
+            <phone:PanoramaItem CacheMode="{x:Null}" Header="Join Room">
+                <phone:PanoramaItem.RenderTransform>
+                    <TranslateTransform/>
+                </phone:PanoramaItem.RenderTransform>
+                <!--ContentPanel - place additional content here-->
+                <ListBox Name="RoomList" SelectionChanged="JoinRoom">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding RoomName}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="FontSize" Value="40"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
+            </phone:PanoramaItem>
+            <phone:PanoramaItem CacheMode="{x:Null}" Header="Create Room">
+                <phone:PanoramaItem.RenderTransform>
+                    <TranslateTransform/>
+                </phone:PanoramaItem.RenderTransform>
+                <ScrollViewer>
+                    <Grid>
+                        <TextBox HorizontalAlignment="Stretch" Height="72" Margin="0,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                        <TextBlock Name="RoomName" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Room Name" VerticalAlignment="Top"/>
+                        <Button Content="Create" Click="CreateRoom_Click" HorizontalAlignment="Left" Margin="1,119,0,0" VerticalAlignment="Top"/>
+                    </Grid>
+                </ScrollViewer>
+            </phone:PanoramaItem>
+            <phone:PanoramaItem CacheMode="{x:Null}" Header="Settings">
+                <phone:PanoramaItem.RenderTransform>
+                    <TranslateTransform/>
+                </phone:PanoramaItem.RenderTransform>
+                <ScrollViewer>
+                    <Grid>
+                        <TextBox HorizontalAlignment="Stretch" Height="72" Margin="0,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                        <TextBlock Name="PlayerName" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Player Name" VerticalAlignment="Top"/>
+                        <Button Content="Save" Click="SetPlayerName_Click" HorizontalAlignment="Left" Margin="1,119,0,0" VerticalAlignment="Top"/>
+                    </Grid>
+                </ScrollViewer>
+            </phone:PanoramaItem>
+        </phone:Panorama>
+        
+        
+    </Grid>
+
+</phone:PhoneApplicationPage>
