@@ -2,7 +2,7 @@
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="en-US" />
   <App xmlns="" ProductID="{3002e0ca-d005-4d93-bca4-e23e83ddd847}" Title="Hearts" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="waronline author" Description="The popular card game Hearts!" Publisher="waronline" PublisherID="{7997efcb-3c27-4ade-94e0-950ebe5c1043}">
-    <IconPath IsRelative="true" IsResource="false">Hearts.png</IconPath>
+    <IconPath IsRelative="true" IsResource="false">Assets/Hearts.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
       <Capability Name="ID_CAP_MEDIALIB_AUDIO" />
@@ -17,9 +17,9 @@
     <Tokens>
       <PrimaryToken TokenID="waronlineToken" TaskName="_default">
         <TemplateFlip>
-          <SmallImageURI IsRelative="true" IsResource="false">Hearts.png</SmallImageURI>
+          <SmallImageURI IsRelative="true" IsResource="false">Assets/Hearts.png</SmallImageURI>
           <Count>0</Count>
-          <BackgroundImageURI IsRelative="true" IsResource="false">Hearts.png</BackgroundImageURI>
+          <BackgroundImageURI IsRelative="true" IsResource="false">Assets/Hearts.png</BackgroundImageURI>
           <Title>Hearts</Title>
           <BackContent>
           </BackContent>
