@@ -26,17 +26,11 @@
             InitializeComponent();
 
             this.cloudProvider = new AzureConnector();
-            playerName = "Bob";
+            this.playerName = "Bob";
 
             this.roomList = this.cloudProvider.ViewRooms(null);
 
-            RoomList.ItemsSource = roomList;
-        }
-
-        private void SetPlayerName_Click(object sender, RoutedEventArgs e)
-        {
-            this.playerName = PlayerName.Text;
-            this.cloudProvider.CreateUser(playerName);
+            RoomList.ItemsSource = this.roomList;
         }
 
         private void JoinRoom(object sender, SelectionChangedEventArgs e)
@@ -46,9 +40,14 @@
             this.cloudProvider.JoinRoom(item.RoomName, this.playerName);
         }
 
-        private void CreateRoom_Click(object sender, RoutedEventArgs e)
+        private void CreateRoom_Click(object sender, EventArgs e)
         {
-            this.cloudProvider.CreateRoom(RoomName.Text);
+            NavigationService.Navigate(new Uri("/CreateRoom.xaml", UriKind.Relative));
+        }
+
+        private void EditPlayerName_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/EditPlayerName.xaml", UriKind.Relative));
         }
     }
 }

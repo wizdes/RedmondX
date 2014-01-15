@@ -15,9 +15,9 @@
     
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar Mode="Default" Opacity="1.0">
-            <shell:ApplicationBarIconButton IconUri="/Assets/add.png" Text="create room"/>
+            <shell:ApplicationBarIconButton IconUri="/Assets/add.png" Text="create room" Click="CreateRoom_Click"/>
             <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="edit player name"/>
+                <shell:ApplicationBarMenuItem Text="edit player name" Click="EditPlayerName_Click"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
@@ -30,7 +30,7 @@
         </Grid.RowDefinitions>
 
         <phone:Panorama HorizontalAlignment="Stretch" Margin="10,10,0,0" Title="Hearts" VerticalAlignment="Stretch" Grid.RowSpan="2">
-            <phone:PanoramaItem CacheMode="{x:Null}" Header="Join Room">
+            <phone:PanoramaItem CacheMode="{x:Null}" Header="Active Rooms">
                 <phone:PanoramaItem.RenderTransform>
                     <TranslateTransform/>
                 </phone:PanoramaItem.RenderTransform>
@@ -50,32 +50,7 @@
                     </ListBox.ItemContainerStyle>
                 </ListBox>
             </phone:PanoramaItem>
-            <phone:PanoramaItem CacheMode="{x:Null}" Header="Create Room">
-                <phone:PanoramaItem.RenderTransform>
-                    <TranslateTransform/>
-                </phone:PanoramaItem.RenderTransform>
-                <ScrollViewer>
-                    <Grid>
-                        <TextBox HorizontalAlignment="Stretch" Height="72" Margin="0,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                        <TextBlock Name="RoomName" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Room Name" VerticalAlignment="Top"/>
-                        <Button Content="Create" Click="CreateRoom_Click" HorizontalAlignment="Left" Margin="1,119,0,0" VerticalAlignment="Top"/>
-                    </Grid>
-                </ScrollViewer>
-            </phone:PanoramaItem>
-            <phone:PanoramaItem CacheMode="{x:Null}" Header="Settings">
-                <phone:PanoramaItem.RenderTransform>
-                    <TranslateTransform/>
-                </phone:PanoramaItem.RenderTransform>
-                <ScrollViewer>
-                    <Grid>
-                        <TextBox HorizontalAlignment="Stretch" Height="72" Margin="0,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                        <TextBlock Name="PlayerName" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Player Name" VerticalAlignment="Top"/>
-                        <Button Content="Save" Click="SetPlayerName_Click" HorizontalAlignment="Left" Margin="1,119,0,0" VerticalAlignment="Top"/>
-                    </Grid>
-                </ScrollViewer>
-            </phone:PanoramaItem>
         </phone:Panorama>
-        
     </Grid>
 
 </phone:PhoneApplicationPage>
