@@ -1,19 +1,20 @@
-﻿using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
-using Microsoft.WindowsAzure.MobileServices;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Navigation;
-using waronline.Resources;
+﻿namespace waronline
+{   
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Net;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Navigation;
+    using Microsoft.Phone.Controls;
+    using Microsoft.Phone.Shell;
+    using Microsoft.WindowsAzure.MobileServices;
+    using Newtonsoft.Json;
 
-namespace waronline
-{
+    using waronline.Resources;
+
     public class TodoItem
     {
         public string Id { get; set; }

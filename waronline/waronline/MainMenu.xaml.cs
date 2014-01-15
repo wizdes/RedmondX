@@ -1,21 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Navigation;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
-
-using waronline.Transport;
-using waronline.Game;
-
-namespace waronline
+﻿namespace waronline
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Navigation;
+    using Microsoft.Phone.Controls;
+    using Microsoft.Phone.Shell;
+
+    using waronline.Transport;
+    using waronline.Data;
+
     public partial class MainMenu : PhoneApplicationPage
     {
-        private ICloud cloudProvider;
+        private ICloudConnector cloudProvider;
 
         private string playerName;
 
@@ -25,10 +25,10 @@ namespace waronline
         {
             InitializeComponent();
 
-            cloudProvider = new AzureConnector();
+            this.cloudProvider = new AzureConnector();
             playerName = "Bob";
 
-            roomList = cloudProvider.ViewRooms(null);
+            this.roomList = this.cloudProvider.ViewRooms(null);
 
             RoomList.ItemsSource = roomList;
         }
@@ -36,19 +36,19 @@ namespace waronline
         private void SetPlayerName_Click(object sender, RoutedEventArgs e)
         {
             this.playerName = PlayerName.Text;
-            cloudProvider.CreateUser(playerName);
+            this.cloudProvider.CreateUser(playerName);
         }
 
         private void JoinRoom(object sender, SelectionChangedEventArgs e)
         {
             IRoom item = (IRoom)e.AddedItems[0];
 
-            cloudProvider.JoinRoom(item.RoomName, this.playerName);
+            this.cloudProvider.JoinRoom(item.RoomName, this.playerName);
         }
 
         private void CreateRoom_Click(object sender, RoutedEventArgs e)
         {
-            cloudProvider.CreateRoom(RoomName.Text);
+            this.cloudProvider.CreateRoom(RoomName.Text);
         }
     }
 }

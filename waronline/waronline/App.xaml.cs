@@ -1,20 +1,20 @@
-﻿using System;
-using System.Diagnostics;
-using System.Resources;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Markup;
-using System.Windows.Navigation;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Notification;
-using Microsoft.Phone.Shell;
-using waronline.Resources;
-
-using Microsoft.WindowsAzure.MobileServices;
-using System.Windows.Threading;
-
-namespace waronline
+﻿namespace waronline
 {
+    using System;
+    using System.Diagnostics;
+    using System.Resources;
+    using System.Threading.Tasks;
+    using System.Windows;
+    using System.Windows.Markup;
+    using System.Windows.Navigation;
+    using Microsoft.Phone.Controls;
+    using Microsoft.Phone.Notification;
+    using Microsoft.Phone.Shell;
+    using waronline.Resources;
+
+    using Microsoft.WindowsAzure.MobileServices;
+    using System.Windows.Threading;
+
     public partial class App : Application
     {
         /// <summary>
@@ -25,8 +25,7 @@ namespace waronline
 
         public static MobileServiceClient MobileService = new MobileServiceClient(
             "https://waronline.azure-mobile.net/",
-            "jeNXIKHUjSZzsohSozKVBmskRbpqtn34"
-            );
+            "jeNXIKHUjSZzsohSozKVBmskRbpqtn34");
 
         public static HttpNotificationChannel CurrentChannel { get; private set; }
 
@@ -67,7 +66,7 @@ namespace waronline
         public App()
         {
             // Global handler for uncaught exceptions.
-            UnhandledException += Application_UnhandledException;
+            UnhandledException += this.Application_UnhandledException;
 
             // Standard XAML initialization
             InitializeComponent();
@@ -85,11 +84,11 @@ namespace waronline
                 Application.Current.Host.Settings.EnableFrameRateCounter = true;
 
                 // Show the areas of the app that are being redrawn in each frame.
-                //Application.Current.Host.Settings.EnableRedrawRegions = true;
+                // Application.Current.Host.Settings.EnableRedrawRegions = true;
 
                 // Enable non-production analysis visualization mode,
                 // which shows areas of a page that are handed off to GPU with a colored overlay.
-                //Application.Current.Host.Settings.EnableCacheVisualization = true;
+                // Application.Current.Host.Settings.EnableCacheVisualization = true;
 
                 // Prevent the screen from turning off while under the debugger by disabling
                 // the application's idle detection.
@@ -104,7 +103,7 @@ namespace waronline
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
-            AcquirePushChannel();
+            this.AcquirePushChannel();
         }
 
         // Code to execute when the application is activated (brought to foreground)
@@ -165,7 +164,7 @@ namespace waronline
             RootFrame.NavigationFailed += RootFrame_NavigationFailed;
 
             // Handle reset requests for clearing the backstack
-            RootFrame.Navigated += CheckForResetNavigation;
+            RootFrame.Navigated += this.CheckForResetNavigation;
 
             // Ensure we don't initialize again
             phoneApplicationInitialized = true;
@@ -187,13 +186,13 @@ namespace waronline
             // If the app has received a 'reset' navigation, then we need to check
             // on the next navigation to see if the page stack should be reset
             if (e.NavigationMode == NavigationMode.Reset)
-                RootFrame.Navigated += ClearBackStackAfterReset;
+                RootFrame.Navigated += this.ClearBackStackAfterReset;
         }
 
         private void ClearBackStackAfterReset(object sender, NavigationEventArgs e)
         {
             // Unregister the event so it doesn't get called again
-            RootFrame.Navigated -= ClearBackStackAfterReset;
+            RootFrame.Navigated -= this.ClearBackStackAfterReset;
 
             // Only clear the stack for 'new' (forward) and 'refresh' navigations
             if (e.NavigationMode != NavigationMode.New && e.NavigationMode != NavigationMode.Refresh)
@@ -202,7 +201,7 @@ namespace waronline
             // For UI consistency, clear the entire page stack
             while (RootFrame.RemoveBackEntry() != null)
             {
-                ; // do nothing
+                // do nothing
             }
         }
 
@@ -224,7 +223,6 @@ namespace waronline
         //     ResourceFlowDirection's value should be "RightToLeft"
         //
         // For more info on localizing Windows Phone apps see http://go.microsoft.com/fwlink/?LinkId=262072.
-        //
         private void InitializeLanguage()
         {
             try

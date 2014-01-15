@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using waronline.Game;
-
-namespace waronline.Transport
+﻿namespace waronline.Transport
 {
-    public interface ICloud
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using waronline.Data;
+
+    public interface ICloudConnector
     {
         /// <summary>
         /// Creates a user in the cloud.

@@ -95,10 +95,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Game\IMessage.cs" />
-    <Compile Include="Game\IRoom.cs" />
-    <Compile Include="Game\Message.cs" />
-    <Compile Include="Game\Room.cs" />
+    <Compile Include="Data\IMessage.cs" />
+    <Compile Include="Data\IRoom.cs" />
+    <Compile Include="Data\Message.cs" />
+    <Compile Include="Data\Room.cs" />
+    <Compile Include="Data\Tables.cs" />
+    <Compile Include="Data\User.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -113,7 +115,7 @@
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Transport\AzureConnector.cs" />
-    <Compile Include="Transport\ICloud.cs" />
+    <Compile Include="Transport\ICloudConnector.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
