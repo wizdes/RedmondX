@@ -107,10 +107,6 @@
     <Compile Include="EditPlayerName.xaml.cs">
       <DependentUpon>EditPlayerName.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Game\IMessage.cs" />
-    <Compile Include="Game\IRoom.cs" />
-    <Compile Include="Game\Message.cs" />
-    <Compile Include="Game\Room.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>

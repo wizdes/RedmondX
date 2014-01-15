@@ -14,7 +14,7 @@ namespace waronline
 
     public partial class EditPlayerName : PhoneApplicationPage
     {
-        private ICloud cloudProvider;
+        private ICloudConnector cloudProvider;
 
         public EditPlayerName()
         {

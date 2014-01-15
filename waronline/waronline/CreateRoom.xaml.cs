@@ -14,7 +14,7 @@ namespace waronline
 
     public partial class CreateRoom : PhoneApplicationPage
     {
-        private ICloud cloudProvider;
+        private ICloudConnector cloudProvider;
 
         public CreateRoom()
         {
