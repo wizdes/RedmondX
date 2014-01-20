@@ -11,6 +11,7 @@ using Microsoft.Phone.Shell;
 namespace waronline
 {
     using waronline.Transport;
+    using waronline.Data;
 
     public partial class CreateRoom : PhoneApplicationPage
     {
@@ -25,10 +26,14 @@ namespace waronline
 
         private void CreateRoom_Click(object sender, EventArgs e)
         {
-            this.cloudProvider.CreateRoom(RoomName.Text);
-
-            // This should launch the game.
-            ////NavigationService.Navigate(new Uri("/CreateRoom.xaml", UriKind.Relative));
+            this.cloudProvider.CreateRoom(NameTextBox.Text, App.Username).ContinueWith(t => 
+                Deployment.Current.Dispatcher.BeginInvoke(() => 
+                {
+                    // For now, navigate to view rooms on completion of the call. We need to figure out 
+                    // something like a progress bar or some animation while we wait and then launch the game.
+                    NavigationService.Navigate(new Uri("/MainMenu.xaml", UriKind.Relative));
+                })
+            );         
         }
     }
 }

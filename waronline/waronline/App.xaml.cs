@@ -103,7 +103,7 @@
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
-            this.AcquirePushChannel();
+             this.AcquirePushChannel();
         }
 
         // Code to execute when the application is activated (brought to foreground)
@@ -261,5 +261,7 @@
                 throw;
             }
         }
+
+        public static string Username { get { return DateTime.UtcNow.ToString(); } }
     }
 }

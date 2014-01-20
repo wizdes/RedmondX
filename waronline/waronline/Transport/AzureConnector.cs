@@ -3,10 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
     using Microsoft.WindowsAzure.MobileServices;
     using waronline.Data;
+    using Newtonsoft.Json.Linq;
 
     public class AzureConnector : ICloudConnector
     {
@@ -14,26 +16,34 @@
         /// Creates a user in the cloud.
         /// </summary>
         /// <param name="username">The username of the user being created.</param>
-        public void CreateUser(string username)
+        public async void CreateUser(string username)
         {
-            AddUserToTable(new User(username));
-        }
-
-        private static async void AddUserToTable(User user)
-        {
-            await Tables.UsersTable.InsertAsync(user);
+            var item = new JObject();
+            item["username"] = App.Username;
+            item["is_active"] = true;
+            item["notification_url"] = App.CurrentChannel.ChannelUri.AbsoluteUri;
+            try
+            {
+                var result = await App.MobileService.InvokeApiAsync("users", item);
+            }
+            catch (Exception e)
+            {
+                Console.Out.WriteLine(e.Message);
+            }
         }
 
         /// <summary>
         /// Creates a room in the cloud.
         /// </summary>
         /// <param name="roomName">The name of the room being created.</param>
+        /// <param name="createdBy">The username of the user creating the room.</param>
         /// <returns>The created <see cref="IRoom"/>.</returns>
-        public IRoom CreateRoom(string roomName) 
+        public async Task CreateRoom(string roomName, string createdBy)
         {
-
-            // TODO: Need to take in the username too.
-            return new Room();
+            var item = new JObject();
+            item["createdBy"] = createdBy;
+            item["roomName"] = roomName;
+            var result = await App.MobileService.InvokeApiAsync("rooms", item, HttpMethod.Post, null);
         }
 
         /// <summary>
@@ -41,8 +51,12 @@
         /// </summary>
         /// <param name="roomName">The name of the room to join.</param>
         /// <param name="username">The username of the user joining the specified room.</param>
-        public void JoinRoom(string roomName, string username)
+        public async void JoinRoom(string roomName, string username)
         {
+            var item = new JObject();
+            item["room_id"] = roomName;
+            item["username"] = username;
+            var result = await App.MobileService.InvokeApiAsync("usersinrooms", item, HttpMethod.Post, null);
         }
 
         /// <summary>
@@ -53,38 +67,33 @@
         /// If not null, only the rooms created by these users are returned.
         /// </param>
         /// <returns>A List of rooms currently active.</returns>
-        /// <remarks>
-        /// Callers must have a try-catch block to handle exception and show and appropriate message to the user.
-        /// </remarks>
-        public IList<IRoom> ViewRooms(IList<string> friendNames) 
+        public async Task<IList<IRoom>> ViewRooms(IList<string> friendNames)
         {
-            IList<IRoom> listOfRooms = new List<IRoom>();
-            foreach (Room room in GetRooms(friendNames).Result)
-            {
-                listOfRooms.Add(room);
-            }
-
-            return listOfRooms;
-            
-        }
-
-        private async Task<IList<Room>> GetRooms(IList<string> friendNames)
-        {
+            var item = new Dictionary<string, string>();
             if (friendNames != null)
             {
-                return await Tables.RoomsTable
-                    .Where(x => friendNames.Contains(x.CreatedBy)).ToCollectionAsync();
+                item.Add("friends", string.Join(",", friendNames));
             }
 
-           return new List<Room> { new Room {RoomName = "Testing"} };
+            var results = await App.MobileService.InvokeApiAsync("rooms", null, HttpMethod.Get, item);
+
+            var rooms = new List<IRoom>();
+            foreach (var result in results)
+            {
+                 rooms.Add(result.ToObject<Room>());
+            }
+
+            return rooms;
         }
 
         /// <summary>
         /// Sends a message to other users in the room.
         /// </summary>
         /// <param name="message">The <see cref="IMessage"/> being sent.</param>
-        public void SendMessage(IMessage message)
+        public async void SendMessage(IMessage message)
         {
+            var item = message as JObject;
+            var result = await App.MobileService.InvokeApiAsync("messages", item, HttpMethod.Post, null);
         }
     }
 }

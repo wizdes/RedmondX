@@ -12,13 +12,13 @@
         /// <summary>
         /// Gets or sets the room id.
         /// </summary>
-        [JsonProperty(PropertyName = "room_id")]
+        [JsonProperty(PropertyName = "id")]
         public string RoomId { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the room.
         /// </summary>\
-        [JsonProperty(PropertyName = "room_name")]
+        [JsonProperty(PropertyName = "name")]
         public string RoomName { get; set; }
 
         /// <summary>

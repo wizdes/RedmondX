@@ -12,25 +12,53 @@
 
     using waronline.Transport;
     using waronline.Data;
+    using Microsoft.WindowsAzure.MobileServices;
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
 
-    public partial class MainMenu : PhoneApplicationPage
+    public partial class MainMenu : PhoneApplicationPage, INotifyPropertyChanged
     {
         private ICloudConnector cloudProvider;
 
         private string playerName;
 
-        private IList<IRoom> roomList;
+        private static ObservableCollection<IRoom> roomList = new ObservableCollection<IRoom>();
+
+        public  static ObservableCollection<IRoom> ListOfRooms
+        {
+            get
+            {
+                return roomList;
+            }
+            
+            set
+            {
+                roomList = value;
+            }
+        }
 
         public MainMenu()
-        {
+        {            
             InitializeComponent();
-
+            this.DataContext = this;
             this.cloudProvider = new AzureConnector();
             this.playerName = "Bob";
+            RoomList.ItemsSource = ListOfRooms;
+            this.cloudProvider.ViewRooms(null).ContinueWith(t => 
+                Deployment.Current.Dispatcher.BeginInvoke(() => {
+                try
+                {
 
-            this.roomList = this.cloudProvider.ViewRooms(null);
-
-            RoomList.ItemsSource = this.roomList;
+                    foreach (Room r in t.Result)
+                    {
+                        ListOfRooms.Add(r);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Out.WriteLine(e.Message);
+                }})
+            );
         }
 
         private void JoinRoom(object sender, SelectionChangedEventArgs e)
@@ -49,5 +77,19 @@
         {
             NavigationService.Navigate(new Uri("/EditPlayerName.xaml", UriKind.Relative));
         }
+
+        #region INotifyPropertyChanged Members
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        // Used to notify the app that a property has changed.
+        private void NotifyPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        #endregion
     }
 }

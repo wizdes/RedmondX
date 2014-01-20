@@ -19,8 +19,7 @@
         /// Creates a room in the cloud.
         /// </summary>
         /// <param name="roomName">The name of the room being created.</param>
-        /// <returns>The created <see cref="IRoom"/>.</returns>
-        IRoom CreateRoom(string roomName);
+        Task CreateRoom(string roomName, string createdBy);
 
         /// <summary>
         /// Join an existing room.
@@ -37,7 +36,7 @@
         /// If not null, only the rooms created by these users are returned.
         /// </param>
         /// <returns></returns>
-        IList<IRoom> ViewRooms(IList<string> friendNames);
+        Task<IList<IRoom>> ViewRooms(IList<string> friendNames);
 
         /// <summary>
         /// Sends a message to other users in the room.

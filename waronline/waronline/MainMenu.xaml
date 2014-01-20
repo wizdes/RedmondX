@@ -35,7 +35,7 @@
                     <TranslateTransform/>
                 </phone:PanoramaItem.RenderTransform>
                 <!--ContentPanel - place additional content here-->
-                <ListBox Name="RoomList" SelectionChanged="JoinRoom">
+                <ListBox x:Name="RoomList" SelectionChanged="JoinRoom"  ItemsSource="{Binding ListOfRooms}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel>
