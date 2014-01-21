@@ -65,7 +65,7 @@
         {
             IRoom item = (IRoom)e.AddedItems[0];
 
-            this.cloudProvider.JoinRoom(item.RoomName, this.playerName);
+            var s = this.cloudProvider.JoinRoom(item.RoomName, this.playerName);
         }
 
         private void CreateRoom_Click(object sender, EventArgs e)

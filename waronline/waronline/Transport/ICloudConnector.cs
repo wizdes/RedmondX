@@ -26,7 +26,7 @@
         /// </summary>
         /// <param name="roomName">The name of the room to join.</param>
         /// <param name="username">The username of the user joining the specified room.</param>
-        void JoinRoom(string roomName, string username);
+        Task<IRoom> JoinRoom(string roomName, string username);
 
         /// <summary>
         /// View the list of existing rooms.

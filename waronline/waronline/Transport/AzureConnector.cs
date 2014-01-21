@@ -51,12 +51,19 @@
         /// </summary>
         /// <param name="roomName">The name of the room to join.</param>
         /// <param name="username">The username of the user joining the specified room.</param>
-        public async void JoinRoom(string roomName, string username)
+        public async Task<IRoom> JoinRoom(string roomName, string username)
         {
             var item = new JObject();
-            item["room_id"] = roomName;
+            item["roomName"] = roomName;
             item["username"] = username;
             var result = await App.MobileService.InvokeApiAsync("usersinrooms", item, HttpMethod.Post, null);
+            IRoom room = new Room();
+            string[] users = result["users"].Value<string>().Split(new char[]{','}, StringSplitOptions.RemoveEmptyEntries);
+            room.UsersInRoom = new List<string>(users);
+            room.RoomId = result["roomId"].Value<string>();
+            room.RoomName = result["roomName"].Value<string>();
+
+            return room;
         }
 
         /// <summary>
