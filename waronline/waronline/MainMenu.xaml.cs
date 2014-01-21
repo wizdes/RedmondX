@@ -42,7 +42,7 @@
             InitializeComponent();
             this.DataContext = this;
             this.cloudProvider = new AzureConnector();
-            this.playerName = "Bob";
+            this.playerName = "Bob " + DateTime.Now.ToString();
             RoomList.ItemsSource = ListOfRooms;
             this.cloudProvider.ViewRooms(null).ContinueWith(t => 
                 Deployment.Current.Dispatcher.BeginInvoke(() => {
@@ -59,6 +59,12 @@
                     Console.Out.WriteLine(e.Message);
                 }})
             );
+
+            App.AcquirePushChannelTask.ContinueWith(t =>
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    this.cloudProvider.CreateUser(this.playerName);
+                }));
         }
 
         private void JoinRoom(object sender, SelectionChangedEventArgs e)
