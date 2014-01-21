@@ -107,6 +107,9 @@
     <Compile Include="EditPlayerName.xaml.cs">
       <DependentUpon>EditPlayerName.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GameLobby.xaml.cs">
+      <DependentUpon>GameLobby.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUITests\GUITest.xaml.cs">
       <DependentUpon>GUITest.xaml</DependentUpon>
     </Compile>
@@ -136,6 +139,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EditPlayerName.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GameLobby.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
