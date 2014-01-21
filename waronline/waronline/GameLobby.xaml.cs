@@ -20,13 +20,19 @@ namespace waronline
         {
             InitializeComponent();
 
+            PlayerList.Children.Clear();
+
+            int i = 0;
             foreach (string user in CurrentRoom.UsersInRoom)
             {
                 var textBlock = new TextBlock { Text = user };
+                Grid.SetRow(textBlock, i++);
                 PlayerList.Children.Add(textBlock);
             }
 
             this.Unloaded += GameLobby_Unloaded;
+
+            this.RoomName.Text = CurrentRoom.RoomName;
         }
 
         void GameLobby_Unloaded(object sender, RoutedEventArgs e)

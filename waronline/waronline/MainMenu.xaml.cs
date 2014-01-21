@@ -65,7 +65,12 @@
         {
             IRoom item = (IRoom)e.AddedItems[0];
 
-            var s = this.cloudProvider.JoinRoom(item.RoomName, this.playerName);
+            this.cloudProvider.JoinRoom(item.RoomName, this.playerName).ContinueWith(t =>
+                Deployment.Current.Dispatcher.BeginInvoke(() => 
+                {
+                    GameLobby.CurrentRoom = t.Result;
+                    NavigationService.Navigate(new Uri("/GameLobby.xaml", UriKind.Relative));
+                }));
         }
 
         private void CreateRoom_Click(object sender, EventArgs e)

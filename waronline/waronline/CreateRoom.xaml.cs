@@ -29,9 +29,15 @@ namespace waronline
             this.cloudProvider.CreateRoom(NameTextBox.Text, App.Username).ContinueWith(t => 
                 Deployment.Current.Dispatcher.BeginInvoke(() => 
                 {
+                    IRoom room = new Room();
+                    room.CreatedBy = NameTextBox.Text;
+                    room.UsersInRoom.Add(App.Username);
+                    room.RoomName = NameTextBox.Text;
+                    GameLobby.CurrentRoom = room;
+
                     // For now, navigate to view rooms on completion of the call. We need to figure out 
                     // something like a progress bar or some animation while we wait and then launch the game.
-                    NavigationService.Navigate(new Uri("/MainMenu.xaml", UriKind.Relative));
+                    NavigationService.Navigate(new Uri("/GameLobby.xaml", UriKind.Relative));
                 })
             );         
         }

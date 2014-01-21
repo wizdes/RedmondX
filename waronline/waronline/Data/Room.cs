@@ -9,6 +9,11 @@
 
     public class Room : IRoom
     {
+        public Room()
+        {
+            this.UsersInRoom = new List<string>();
+        }
+
         /// <summary>
         /// Gets or sets the room id.
         /// </summary>
