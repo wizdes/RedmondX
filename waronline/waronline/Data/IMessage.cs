@@ -8,6 +8,8 @@
 
     public enum MessageType
     {
+        PlayerJoinedRoom = 0,
+        TradeCard = 1
     }
 
     public interface IMessage

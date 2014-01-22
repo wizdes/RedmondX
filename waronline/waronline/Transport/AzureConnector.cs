@@ -93,11 +93,16 @@
         /// Sends a message to other users in the room.
         /// </summary>
         /// <param name="message">The <see cref="IMessage"/> being sent.</param>
-        public async void SendMessage(IMessage message)
+        public void SendMessage(IMessage message)
         {
-            var item = message as JObject;
+            var item = new  JObject();
             item["version"] = App.Version;
-            var result = await App.MobileService.InvokeApiAsync("messages", item, HttpMethod.Post, null);
+            item["message_type"] = (int)message.Type;
+            item["sender"] = message.Sender;
+            item["room_id"] = message.RoomId;
+            item["content"] = message.Content;
+
+            App.MobileService.InvokeApiAsync("messages", item, HttpMethod.Post, null);
         }
     }
 }
