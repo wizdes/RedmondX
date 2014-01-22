@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-
+using waronline.Data;
 namespace waronline
 {
     using waronline.Transport;
@@ -25,7 +25,12 @@ namespace waronline
 
         private void EditName_Click(object sender, EventArgs e)
         {
-            this.cloudProvider.CreateUser(PlayerName.Text);
+            this.cloudProvider.CreateUser(new User
+            {
+                Username = PlayerName.Text,
+                NotificationUrl = App.CurrentChannel.ChannelUri.AbsoluteUri,
+                IsActive = true
+            });
             NavigationService.Navigate(new Uri("/MainMenu.xaml", UriKind.Relative));
         }
     }

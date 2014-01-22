@@ -29,10 +29,8 @@ namespace waronline
             this.cloudProvider.CreateRoom(NameTextBox.Text, App.Username).ContinueWith(t => 
                 Deployment.Current.Dispatcher.BeginInvoke(() => 
                 {
-                    IRoom room = new Room();
-                    room.CreatedBy = NameTextBox.Text;
+                    IRoom room = t.Result;
                     room.UsersInRoom.Add(App.Username);
-                    room.RoomName = NameTextBox.Text;
                     GameLobby.CurrentRoom = room;
 
                     // For now, navigate to view rooms on completion of the call. We need to figure out 

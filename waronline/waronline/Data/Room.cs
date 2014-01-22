@@ -23,7 +23,7 @@
         /// <summary>
         /// Gets or sets the name of the room.
         /// </summary>\
-        [JsonProperty(PropertyName = "name")]
+        [JsonProperty(PropertyName = "room_name")]
         public string RoomName { get; set; }
 
         /// <summary>

@@ -12,21 +12,21 @@
         /// <summary>
         /// Creates a user in the cloud.
         /// </summary>
-        /// <param name="username">The username of the user being created.</param>
-        void CreateUser(string username);
+        /// <param name="user">The user being created.</param>
+        Task<User> CreateUser(User user);
 
         /// <summary>
         /// Creates a room in the cloud.
         /// </summary>
         /// <param name="roomName">The name of the room being created.</param>
-        Task CreateRoom(string roomName, string createdBy);
+        Task<IRoom> CreateRoom(string roomName, string createdBy);
 
         /// <summary>
         /// Join an existing room.
         /// </summary>
         /// <param name="roomName">The name of the room to join.</param>
         /// <param name="username">The username of the user joining the specified room.</param>
-        Task<IRoom> JoinRoom(string roomName, string username);
+        Task<IRoom> JoinRoom(IRoom room, string username);
 
         /// <summary>
         /// View the list of existing rooms.

@@ -63,7 +63,12 @@
             App.AcquirePushChannelTask.ContinueWith(t =>
                 Deployment.Current.Dispatcher.BeginInvoke(() =>
                 {
-                    this.cloudProvider.CreateUser(this.playerName);
+                    this.cloudProvider.CreateUser(new User
+                    {
+                        Username = this.playerName,
+                        NotificationUrl = App.CurrentChannel.ChannelUri.AbsoluteUri,
+                        IsActive = true,
+                    });
                 }));
         }
 
@@ -71,7 +76,7 @@
         {
             IRoom item = (IRoom)e.AddedItems[0];
 
-            this.cloudProvider.JoinRoom(item.RoomName, this.playerName).ContinueWith(t =>
+            this.cloudProvider.JoinRoom(item, this.playerName).ContinueWith(t =>
                 Deployment.Current.Dispatcher.BeginInvoke(() => 
                 {
                     GameLobby.CurrentRoom = t.Result;

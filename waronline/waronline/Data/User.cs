@@ -8,7 +8,7 @@
     using Microsoft.WindowsAzure.MobileServices;
     using Newtonsoft.Json;
 
-    class User
+    public class User
     {
         /// <summary>
         /// Gets or sets the user id.
@@ -33,6 +33,13 @@
         /// </summary>
         [JsonProperty(PropertyName = "is_active")]
         public bool IsActive { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="User"/> class.
+        /// </summary>
+        public User()
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="User"/> class.

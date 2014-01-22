@@ -16,20 +16,15 @@
         /// Creates a user in the cloud.
         /// </summary>
         /// <param name="username">The username of the user being created.</param>
-        public async void CreateUser(string username)
+        public async Task<User> CreateUser(User user)
         {
             var item = new JObject();
-            item["username"] = App.Username;
-            item["is_active"] = true;
-            item["notification_url"] = App.CurrentChannel.ChannelUri.AbsoluteUri;
-            try
-            {
-                var result = await App.MobileService.InvokeApiAsync("users", item);
-            }
-            catch (Exception e)
-            {
-                Console.Out.WriteLine(e.Message);
-            }
+            item["version"] = App.Version;
+            item["username"] = user.Username;
+            item["is_active"] = user.IsActive;
+            item["notification_url"] = user.NotificationUrl;
+            var result = await App.MobileService.InvokeApiAsync("users", item);
+            return result.ToObject<User>();
         }
 
         /// <summary>
@@ -38,31 +33,31 @@
         /// <param name="roomName">The name of the room being created.</param>
         /// <param name="createdBy">The username of the user creating the room.</param>
         /// <returns>The created <see cref="IRoom"/>.</returns>
-        public async Task CreateRoom(string roomName, string createdBy)
+        public async Task<IRoom> CreateRoom(string roomName, string createdBy)
         {
             var item = new JObject();
+            item["version"] = App.Version;
             item["createdBy"] = createdBy;
             item["roomName"] = roomName;
             var result = await App.MobileService.InvokeApiAsync("rooms", item, HttpMethod.Post, null);
+            return result.ToObject<Room>();
         }
 
         /// <summary>
         /// Join an existing room.
         /// </summary>
-        /// <param name="roomName">The name of the room to join.</param>
+        /// <param name="room">The oom to join.</param>
         /// <param name="username">The username of the user joining the specified room.</param>
-        public async Task<IRoom> JoinRoom(string roomName, string username)
+        public async Task<IRoom> JoinRoom(IRoom room, string username)
         {
             var item = new JObject();
-            item["roomName"] = roomName;
+            item["version"] = App.Version;
+            item["roomName"] = room.RoomName;
+            item["id"] = room.RoomId;
             item["username"] = username;
             var result = await App.MobileService.InvokeApiAsync("usersinrooms", item, HttpMethod.Post, null);
-            IRoom room = new Room();
             string[] users = result["users"].Value<string>().Split(new char[]{','}, StringSplitOptions.RemoveEmptyEntries);
             room.UsersInRoom = new List<string>(users);
-            room.RoomId = result["roomId"].Value<string>();
-            room.RoomName = result["roomName"].Value<string>();
-
             return room;
         }
 
@@ -77,6 +72,7 @@
         public async Task<IList<IRoom>> ViewRooms(IList<string> friendNames)
         {
             var item = new Dictionary<string, string>();
+            item.Add("version", App.Version.ToString());
             if (friendNames != null)
             {
                 item.Add("friends", string.Join(",", friendNames));
@@ -100,6 +96,7 @@
         public async void SendMessage(IMessage message)
         {
             var item = message as JObject;
+            item["version"] = App.Version;
             var result = await App.MobileService.InvokeApiAsync("messages", item, HttpMethod.Post, null);
         }
     }

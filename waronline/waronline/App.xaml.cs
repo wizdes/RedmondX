@@ -29,6 +29,7 @@
 
         public static HttpNotificationChannel CurrentChannel { get; private set; }
 
+        public static int Version = 1;
 
         private async Task AcquirePushChannel()
         {
