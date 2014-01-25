@@ -11,9 +11,11 @@
     using Microsoft.Phone.Notification;
     using Microsoft.Phone.Shell;
     using waronline.Resources;
-
+    using waronline.Data;
+    using waronline.Transport;
     using Microsoft.WindowsAzure.MobileServices;
     using System.Windows.Threading;
+    using Newtonsoft.Json.Linq;
 
     public partial class App : Application
     {
@@ -30,6 +32,10 @@
         public static HttpNotificationChannel CurrentChannel { get; private set; }
 
         public static int Version = 1;
+
+        public static ICloudConnector cloudConnector = new AzureConnector();
+
+        public static string playerName = "Bob " + DateTime.Now.ToString();
 
         private async Task AcquirePushChannel()
         {
@@ -58,7 +64,19 @@
                 payload = reader.ReadToEnd();
             }
 
-            Deployment.Current.Dispatcher.BeginInvoke(() => MainPage.UpdateTodoItemList(payload));
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    JObject message = JObject.Parse(payload);
+                    switch(message["type"].ToString())
+                    {
+                        case "PlayerJoinedRoom":
+                            GameLobby.PlayersInRoom.Add(message["content"].ToString());
+                            break;
+                        default:
+                            throw new InvalidOperationException();
+                    }
+                    //MainPage.UpdateTodoItemList(payload)
+                });
         }
         
         /// <summary>
@@ -104,7 +122,16 @@
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
-             AcquirePushChannelTask = this.AcquirePushChannel();
+            this.AcquirePushChannel().ContinueWith(t =>
+               Deployment.Current.Dispatcher.BeginInvoke(() =>
+               {
+                   App.cloudConnector.CreateUser(new User
+                   {
+                       Username = playerName,
+                       NotificationUrl = App.CurrentChannel.ChannelUri.AbsoluteUri,
+                       IsActive = true,
+                   });
+               }));
         }
 
         // Code to execute when the application is activated (brought to foreground)

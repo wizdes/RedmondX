@@ -9,6 +9,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
 using waronline.Data;
+using System.Collections.ObjectModel;
 
 namespace waronline
 {
@@ -16,28 +17,43 @@ namespace waronline
     {
         public static IRoom CurrentRoom { get; set; }
 
+        private static ObservableCollection<string> playersInRoom = new ObservableCollection<string>();
+        public static ObservableCollection<string> PlayersInRoom
+        {
+            get
+            {
+                return playersInRoom;
+            }
+
+            set
+            {
+                playersInRoom = value;
+            }
+        }
+
         public GameLobby()
         {
             InitializeComponent();
+            this.DataContext = this;
+            PlayerList.ItemsSource = PlayersInRoom;
 
-            PlayerList.Children.Clear();
-
-            int i = 0;
             foreach (string user in CurrentRoom.UsersInRoom)
             {
-                var textBlock = new TextBlock { Text = user };
-                Grid.SetRow(textBlock, i++);
-                PlayerList.Children.Add(textBlock);
+                PlayersInRoom.Add(user);
             }
 
             this.Unloaded += GameLobby_Unloaded;
-
             this.RoomName.Text = CurrentRoom.RoomName;
         }
 
         void GameLobby_Unloaded(object sender, RoutedEventArgs e)
         {
             CurrentRoom = null;
+        }
+
+        private void PlayerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

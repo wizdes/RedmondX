@@ -15,22 +15,18 @@ namespace waronline
 
     public partial class CreateRoom : PhoneApplicationPage
     {
-        private ICloudConnector cloudProvider;
-
         public CreateRoom()
         {
             InitializeComponent();
-
-            this.cloudProvider = new AzureConnector();
         }
 
         private void CreateRoom_Click(object sender, EventArgs e)
         {
-            this.cloudProvider.CreateRoom(NameTextBox.Text, App.Username).ContinueWith(t => 
+            App.cloudConnector.CreateRoom(NameTextBox.Text, App.playerName).ContinueWith(t => 
                 Deployment.Current.Dispatcher.BeginInvoke(() => 
                 {
                     IRoom room = t.Result;
-                    room.UsersInRoom.Add(App.Username);
+                    room.UsersInRoom.Add(App.playerName);
                     GameLobby.CurrentRoom = room;
 
                     // For now, navigate to view rooms on completion of the call. We need to figure out 

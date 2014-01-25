@@ -14,18 +14,14 @@ namespace waronline
 
     public partial class EditPlayerName : PhoneApplicationPage
     {
-        private ICloudConnector cloudProvider;
-
         public EditPlayerName()
         {
             InitializeComponent();
-
-            this.cloudProvider = new AzureConnector();
         }
 
         private void EditName_Click(object sender, EventArgs e)
         {
-            this.cloudProvider.CreateUser(new User
+            App.cloudConnector.CreateUser(new User
             {
                 Username = PlayerName.Text,
                 NotificationUrl = App.CurrentChannel.ChannelUri.AbsoluteUri,

@@ -18,10 +18,6 @@
 
     public partial class MainMenu : PhoneApplicationPage, INotifyPropertyChanged
     {
-        private ICloudConnector cloudProvider;
-
-        private string playerName;
-
         private static ObservableCollection<IRoom> roomList = new ObservableCollection<IRoom>();
 
         public  static ObservableCollection<IRoom> ListOfRooms
@@ -41,10 +37,8 @@
         {            
             InitializeComponent();
             this.DataContext = this;
-            this.cloudProvider = new AzureConnector();
-            this.playerName = "Bob " + DateTime.Now.ToString();
             RoomList.ItemsSource = ListOfRooms;
-            this.cloudProvider.ViewRooms(null).ContinueWith(t => 
+            App.cloudConnector.ViewRooms(null).ContinueWith(t => 
                 Deployment.Current.Dispatcher.BeginInvoke(() => {
                 try
                 {
@@ -59,24 +53,13 @@
                     Console.Out.WriteLine(e.Message);
                 }})
             );
-
-            App.AcquirePushChannelTask.ContinueWith(t =>
-                Deployment.Current.Dispatcher.BeginInvoke(() =>
-                {
-                    this.cloudProvider.CreateUser(new User
-                    {
-                        Username = this.playerName,
-                        NotificationUrl = App.CurrentChannel.ChannelUri.AbsoluteUri,
-                        IsActive = true,
-                    });
-                }));
         }
 
         private void JoinRoom(object sender, SelectionChangedEventArgs e)
         {
             IRoom item = (IRoom)e.AddedItems[0];
 
-            this.cloudProvider.JoinRoom(item, this.playerName).ContinueWith(t =>
+            App.cloudConnector.JoinRoom(item, App.playerName).ContinueWith(t =>
                 Deployment.Current.Dispatcher.BeginInvoke(() => 
                 {
                     GameLobby.CurrentRoom = t.Result;
