@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Phone.Maps.Controls;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace gamedemo
@@ -12,6 +13,8 @@ namespace gamedemo
     {
         private int x;
         private int y;
+        private int x_size = 75;
+        private int y_size = 110;
         private Texture2D reference;
         private bool isVisible;
         private bool isMoving;
@@ -29,6 +32,16 @@ namespace gamedemo
         public Texture2D Reference
         {
             get { return reference; }
+        }
+
+        public bool containsPosition(Vector2 position){
+            if (position.X > x && position.X < x + x_size &&
+                position.Y > y && position.Y < y + y_size)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public DrawnCard(Texture2D reference)

@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.Phone.Maps.Controls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input.Touch;
 
 namespace gamedemo
 {
@@ -19,6 +20,8 @@ namespace gamedemo
         private Dictionary<string, DrawnCard> cardTextureMap;
         private int x = 0;
         private int y = 0;
+        private bool _firstUpdate = true;
+
 
         public Game1()
         {
@@ -26,7 +29,11 @@ namespace gamedemo
             Content.RootDirectory = "Content";
             cardTextureList = new List<DrawnCard>();
             cardTextureMap = new Dictionary<string, DrawnCard>();
+
+            TouchPanel.EnabledGestures = GestureType.Tap;
         }
+
+
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -105,6 +112,23 @@ namespace gamedemo
             // TODO: Unload any non ContentManager content here
         }
 
+        protected void removeCardAtPosition(Vector2 position)
+        {
+            DrawnCard cardToRemove = null;
+            foreach (DrawnCard card in cardTextureList)
+            {
+                if (card.containsPosition(position))
+                {
+                    cardToRemove = card;
+                }
+            }
+            if (cardToRemove != null)
+            {
+                cardToRemove.IsVisible = false;
+                cardToRemove.move(-100, -100);
+            }
+        }
+
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
@@ -115,8 +139,33 @@ namespace gamedemo
             x++;
             y++;
 
+            if (_firstUpdate)
+            {
+                // Temp hack to fix gestures
+                typeof(Microsoft.Xna.Framework.Input.Touch.TouchPanel)
+                    .GetField("_touchScale", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)
+                    .SetValue(null, Vector2.One);
+
+                _firstUpdate = false;
+            }
+
             if (x > 500) x = 0;
             if (y > 500) y = 0;
+
+            while (TouchPanel.IsGestureAvailable)
+            {
+                GestureSample gesture = TouchPanel.ReadGesture();
+
+                switch (gesture.GestureType)
+                {
+                    case GestureType.Tap:
+                        removeCardAtPosition(gesture.Position);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
 
             base.Update(gameTime);
         }
