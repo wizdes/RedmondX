@@ -98,6 +98,7 @@
     <Compile Include="Data\IMessage.cs" />
     <Compile Include="Data\IRoom.cs" />
     <Compile Include="Data\Message.cs" />
+    <Compile Include="Data\PersistentStorage.cs" />
     <Compile Include="Data\Room.cs" />
     <Compile Include="Data\Tables.cs" />
     <Compile Include="Data\User.cs" />

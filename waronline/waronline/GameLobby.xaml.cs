@@ -49,6 +49,7 @@ namespace waronline
         void GameLobby_Unloaded(object sender, RoutedEventArgs e)
         {
             CurrentRoom = null;
+            PlayersInRoom.Clear();
         }
 
         private void PlayerList_SelectionChanged(object sender, SelectionChangedEventArgs e)

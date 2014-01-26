@@ -75,7 +75,6 @@
                         default:
                             throw new InvalidOperationException();
                     }
-                    //MainPage.UpdateTodoItemList(payload)
                 });
         }
         

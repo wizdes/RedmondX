@@ -10,7 +10,7 @@ namespace waronline.Data
     /// <summary>
     /// A class that can be used to persists key-value pairs.
     /// </summary>
-    class PersistentStorage
+    public class PersistentStorage
     {
         private IsolatedStorageSettings settings;
 
