@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2012 for Windows Phone
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "waronline", "waronline\waronline.csproj", "{3002E0CA-D005-4D93-BCA4-E23E83DDD847}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{9CFD7FE0-5298-49CF-B2DF-B7D816199C48}"
@@ -19,9 +19,9 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3002E0CA-D005-4D93-BCA4-E23E83DDD847}.Debug|Any CPU.ActiveCfg = Debug|ARM
-		{3002E0CA-D005-4D93-BCA4-E23E83DDD847}.Debug|Any CPU.Build.0 = Debug|ARM
-		{3002E0CA-D005-4D93-BCA4-E23E83DDD847}.Debug|Any CPU.Deploy.0 = Debug|ARM
+		{3002E0CA-D005-4D93-BCA4-E23E83DDD847}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{3002E0CA-D005-4D93-BCA4-E23E83DDD847}.Debug|Any CPU.Build.0 = Debug|x86
+		{3002E0CA-D005-4D93-BCA4-E23E83DDD847}.Debug|Any CPU.Deploy.0 = Debug|x86
 		{3002E0CA-D005-4D93-BCA4-E23E83DDD847}.Debug|ARM.ActiveCfg = Debug|ARM
 		{3002E0CA-D005-4D93-BCA4-E23E83DDD847}.Debug|ARM.Build.0 = Debug|ARM
 		{3002E0CA-D005-4D93-BCA4-E23E83DDD847}.Debug|ARM.Deploy.0 = Debug|ARM
