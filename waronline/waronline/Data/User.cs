@@ -44,7 +44,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="User"/> class.
         /// </summary>
-        /// <param name="username">The username of the user being creatd.</param>
+        /// <param name="username">The username of the user being created.</param>
         public User(string username)
         {
             this.Username = username;

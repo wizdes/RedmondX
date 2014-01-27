@@ -22,11 +22,11 @@ namespace waronline
 
         private void CreateRoom_Click(object sender, EventArgs e)
         {
-            App.cloudConnector.CreateRoom(NameTextBox.Text, App.playerName).ContinueWith(t => 
+            App.cloudConnector.CreateRoom(NameTextBox.Text, PersistentStorage.Instance.Username).ContinueWith(t => 
                 Deployment.Current.Dispatcher.BeginInvoke(() => 
                 {
                     IRoom room = t.Result;
-                    room.UsersInRoom.Add(App.playerName);
+                    room.UsersInRoom.Add(PersistentStorage.Instance.Username);
                     GameLobby.CurrentRoom = room;
 
                     // For now, navigate to view rooms on completion of the call. We need to figure out 

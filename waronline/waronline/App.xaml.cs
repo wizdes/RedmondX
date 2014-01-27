@@ -35,8 +35,6 @@
 
         public static ICloudConnector cloudConnector = new AzureConnector();
 
-        public static string playerName = "Bob " + DateTime.Now.ToString();
-
         private async Task AcquirePushChannel()
         {
             CurrentChannel = HttpNotificationChannel.Find("MyPushChannel");
@@ -114,7 +112,6 @@
                 // and consume battery power when the user is not using the phone.
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
-
         }
 
         // Code to execute when the application is launching (eg, from Start)
@@ -124,12 +121,15 @@
             this.AcquirePushChannel().ContinueWith(t =>
                Deployment.Current.Dispatcher.BeginInvoke(() =>
                {
-                   App.cloudConnector.CreateUser(new User
+                   if (!string.IsNullOrEmpty(PersistentStorage.Instance.Username))
                    {
-                       Username = playerName,
-                       NotificationUrl = App.CurrentChannel.ChannelUri.AbsoluteUri,
-                       IsActive = true,
-                   });
+                        App.cloudConnector.CreateUser(new User
+                        {
+                            Username = PersistentStorage.Instance.Username,
+                            NotificationUrl = App.CurrentChannel.ChannelUri.AbsoluteUri,
+                            IsActive = true,
+                        });
+                   }
                }));
         }
 
@@ -288,8 +288,6 @@
                 throw;
             }
         }
-
-        public static string Username { get { return DateTime.UtcNow.ToString(); } }
 
         public static Task AcquirePushChannelTask { get; set; }
     }

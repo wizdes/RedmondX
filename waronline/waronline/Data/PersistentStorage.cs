@@ -16,7 +16,7 @@ namespace waronline.Data
 
         private const string UsernameKey = "Username";
 
-        private string DefaultUsername = "Bob " + DateTime.Now.ToString();
+        private string DefaultUsername = null;
 
         private static PersistentStorage instance;
 

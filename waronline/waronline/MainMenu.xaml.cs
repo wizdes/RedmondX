@@ -34,7 +34,7 @@
         }
 
         public MainMenu()
-        {            
+        {   
             InitializeComponent();
             this.DataContext = this;
             RoomList.ItemsSource = ListOfRooms;
@@ -53,13 +53,22 @@
                     Console.Out.WriteLine(e.Message);
                 }})
             );
+
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (string.IsNullOrEmpty(PersistentStorage.Instance.Username))
+            {
+                NavigationService.Navigate(new Uri("/EditPlayerName.xaml", UriKind.Relative));
+            }
         }
 
         private void JoinRoom(object sender, SelectionChangedEventArgs e)
         {
             IRoom item = (IRoom)e.AddedItems[0];
 
-            App.cloudConnector.JoinRoom(item, App.playerName).ContinueWith(t =>
+            App.cloudConnector.JoinRoom(item, PersistentStorage.Instance.Username).ContinueWith(t =>
                 Deployment.Current.Dispatcher.BeginInvoke(() => 
                 {
                     GameLobby.CurrentRoom = t.Result;

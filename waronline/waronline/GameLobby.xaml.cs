@@ -56,5 +56,10 @@ namespace waronline
         {
 
         }
+
+        private void StartGame(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/GUI/GamePage.xaml", UriKind.Relative));
+        }
     }
 }

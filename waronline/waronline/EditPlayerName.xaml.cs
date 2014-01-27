@@ -17,10 +17,13 @@ namespace waronline
         public EditPlayerName()
         {
             InitializeComponent();
+
+            PlayerName.Text = PersistentStorage.Instance.Username ?? string.Empty;
         }
 
         private void EditName_Click(object sender, EventArgs e)
         {
+            PersistentStorage.Instance.Username = PlayerName.Text;
             App.cloudConnector.CreateUser(new User
             {
                 Username = PlayerName.Text,
