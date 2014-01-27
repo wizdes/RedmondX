@@ -111,6 +111,11 @@
     <Compile Include="GameLobby.xaml.cs">
       <DependentUpon>GameLobby.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GameLogic\Card.cs" />
+    <Compile Include="GameLogic\Deck.cs" />
+    <Compile Include="GameLogic\GameLogic.cs" />
+    <Compile Include="GameLogic\HeartsLogic.cs" />
+    <Compile Include="GameLogic\Player.cs" />
     <Compile Include="GUITests\GUITest.xaml.cs">
       <DependentUpon>GUITest.xaml</DependentUpon>
     </Compile>
