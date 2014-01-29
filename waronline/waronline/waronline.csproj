@@ -440,4 +440,5 @@
   <ProjectExtensions />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.8\tools\Microsoft.Bcl.Build.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <Import Project="..\packages\MonoGame.3.0.1\build\wp8\MonoGame.targets" Condition="Exists('..\packages\MonoGame.3.0.1\build\wp8\MonoGame.targets')" />
 </Project>
