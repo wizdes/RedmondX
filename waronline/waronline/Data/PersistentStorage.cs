@@ -16,6 +16,8 @@ namespace waronline.Data
 
         private const string UsernameKey = "Username";
 
+        private const string UserIdKey = "UserId";
+
         private string DefaultUsername = null;
 
         private static PersistentStorage instance;
@@ -48,6 +50,22 @@ namespace waronline.Data
             set
             {
                 if (AddOrUpdateValue(UsernameKey, value))
+                {
+                    Save();
+                }
+            }
+        }
+
+        public string UserId
+        {
+            get
+            {
+                return GetValueOrDefault<string>(UserIdKey, null);
+            }
+
+            set
+            {
+                if (AddOrUpdateValue(UserIdKey, value))
                 {
                     Save();
                 }

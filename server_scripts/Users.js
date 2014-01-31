@@ -5,13 +5,29 @@ exports.post = function(request, response) {
         notification_url:request.body.notification_url,
         is_active: request.body.is_active
     };
-    
-    usersTable.insert(item,
-     { success: function(createdUser)
+
+    var userid = request.body.id;
+    if (userid == null)
+    {        
+        usersTable.insert(item,
         {
-            response.send(statusCodes.OK, createdUser);
-        }
-     });
+            success: function(createdUser)
+            {
+                response.send(statusCodes.OK, createdUser);
+            }
+        });
+    }
+    else
+    {
+        item["id"] = userid;
+        usersTable.update(item,
+        {
+            success: function(createdUser)
+            {
+                response.send(statusCodes.OK, createdUser);
+            }
+        });
+    }
 };
 
 exports.get = function(request, response) {

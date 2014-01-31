@@ -20,6 +20,7 @@
         {
             var item = new JObject();
             item["version"] = App.Version;
+            item["id"] = user.Id;
             item["username"] = user.Username;
             item["is_active"] = user.IsActive;
             item["notification_url"] = user.NotificationUrl;

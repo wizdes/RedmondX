@@ -29,53 +29,12 @@
             "https://waronline.azure-mobile.net/",
             "jeNXIKHUjSZzsohSozKVBmskRbpqtn34");
 
-        public static HttpNotificationChannel CurrentChannel { get; private set; }
+        public static HttpNotificationChannel CurrentChannel { get; set; }
 
         public static int Version = 1;
 
         public static ICloudConnector cloudConnector = new AzureConnector();
-
-        private async Task AcquirePushChannel()
-        {
-            CurrentChannel = HttpNotificationChannel.Find("MyPushChannel");
-
-
-            if (CurrentChannel == null)
-            {
-                CurrentChannel = new HttpNotificationChannel("MyPushChannel");
-                CurrentChannel.Open();
-                CurrentChannel.BindToShellTile();
-                CurrentChannel.BindToShellToast();
-            }
-
-            CurrentChannel.HttpNotificationReceived += HandleRawNotification;
-            IMobileServiceTable<Registrations> registrationsTable = App.MobileService.GetTable<Registrations>();
-            var registration = new Registrations { Handle = CurrentChannel.ChannelUri.AbsoluteUri };
-            await registrationsTable.InsertAsync(registration);
-        }
-
-        private void HandleRawNotification(object sender, HttpNotificationEventArgs e)
-        {
-            string payload;
-            using (System.IO.StreamReader reader = new System.IO.StreamReader(e.Notification.Body))
-            {
-                payload = reader.ReadToEnd();
-            }
-
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
-                {
-                    JObject message = JObject.Parse(payload);
-                    switch(message["type"].ToString())
-                    {
-                        case "PlayerJoinedRoom":
-                            GameLobby.PlayersInRoom.Add(message["content"].ToString());
-                            break;
-                        default:
-                            throw new InvalidOperationException();
-                    }
-                });
-        }
-        
+       
         /// <summary>
         /// Constructor for the Application object.
         /// </summary>
@@ -118,19 +77,7 @@
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
-            this.AcquirePushChannel().ContinueWith(t =>
-               Deployment.Current.Dispatcher.BeginInvoke(() =>
-               {
-                   if (!string.IsNullOrEmpty(PersistentStorage.Instance.Username))
-                   {
-                        App.cloudConnector.CreateUser(new User
-                        {
-                            Username = PersistentStorage.Instance.Username,
-                            NotificationUrl = App.CurrentChannel.ChannelUri.AbsoluteUri,
-                            IsActive = true,
-                        });
-                   }
-               }));
+            this.AcquirePushChannel();
         }
 
         // Code to execute when the application is activated (brought to foreground)
@@ -149,6 +96,40 @@
         // This code will not execute when the application is deactivated
         private void Application_Closing(object sender, ClosingEventArgs e)
         {
+        }
+
+        private void AcquirePushChannel()
+        {
+            App.CurrentChannel = HttpNotificationChannel.Find("MessageChannel");
+            if (App.CurrentChannel == null)
+            {
+                App.CurrentChannel = new HttpNotificationChannel("MessageChannel");
+                App.CurrentChannel.Open();
+            }
+
+            App.CurrentChannel.HttpNotificationReceived += HandleRawNotification;
+        }
+
+        private void HandleRawNotification(object sender, HttpNotificationEventArgs e)
+        {
+            string payload;
+            using (System.IO.StreamReader reader = new System.IO.StreamReader(e.Notification.Body))
+            {
+                payload = reader.ReadToEnd();
+            }
+
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                JObject message = JObject.Parse(payload);
+                switch (message["type"].ToString())
+                {
+                    case "PlayerJoinedRoom":
+                        GameLobby.PlayersInRoom.Add(message["content"].ToString());
+                        break;
+                    default:
+                        throw new InvalidOperationException();
+                }
+            });
         }
 
         // Code to execute if a navigation fails
