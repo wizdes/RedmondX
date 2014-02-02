@@ -95,6 +95,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Constants.cs" />
     <Compile Include="Data\IMessage.cs" />
     <Compile Include="Data\IRoom.cs" />
     <Compile Include="Data\Message.cs" />
@@ -119,6 +120,12 @@
     <Compile Include="GUITests\GUITest.xaml.cs">
       <DependentUpon>GUITest.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\52CardPickup.cs" />
+    <Compile Include="GUI\CommonFunctions.cs" />
+    <Compile Include="GUI\GameTemplate.cs" />
+    <Compile Include="GUI\GiveMainPlayerCards.cs" />
+    <Compile Include="GUI\GUIPlayer.cs" />
+    <Compile Include="GUI\MainBasicGUIPlayer.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -138,7 +145,7 @@
     <Compile Include="GUI\GamePage.xaml.cs">
       <DependentUpon>GamePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Game1.cs" />
+    <Compile Include="GUI\gameDriver.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

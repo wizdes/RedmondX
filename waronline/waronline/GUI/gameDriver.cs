@@ -5,13 +5,14 @@ using Microsoft.Phone.Maps.Controls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
+using waronline.GUI;
 
 namespace waronline
 {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Game
+    public class gameDriver : Game
     {
         GraphicsDeviceManager _graphics;
         SpriteBatch _spriteBatch;
@@ -21,8 +22,10 @@ namespace waronline
         private int y = 0;
         private bool _firstUpdate = true;
 
+        private GameTemplate game;
 
-        public Game1()
+
+        public gameDriver()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = @"Assets\Cards";
@@ -30,6 +33,8 @@ namespace waronline
             cardTextureMap = new Dictionary<string, DrawnCard>();
 
             TouchPanel.EnabledGestures = GestureType.Tap;
+
+            game = new GiveMainPlayerCards(cardTextureList);
         }
 
 
@@ -91,13 +96,8 @@ namespace waronline
                 }
             }
 
+            game.initCards();
 
-            Random r = new Random();
-            foreach (DrawnCard card in cardTextureList)
-            {
-                card.IsVisible = true;
-                card.move(r.Next(480), r.Next(800));
-            }
         }
 
         /// <summary>
@@ -107,23 +107,6 @@ namespace waronline
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
-        }
-
-        protected void removeCardAtPosition(Vector2 position)
-        {
-            DrawnCard cardToRemove = null;
-            foreach (DrawnCard card in cardTextureList)
-            {
-                if (card.containsPosition(position))
-                {
-                    cardToRemove = card;
-                }
-            }
-            if (cardToRemove != null)
-            {
-                cardToRemove.IsVisible = false;
-                cardToRemove.move(-100, -100);
-            }
         }
 
         /// <summary>
@@ -150,13 +133,12 @@ namespace waronline
                 switch (gesture.GestureType)
                 {
                     case GestureType.Tap:
-                        removeCardAtPosition(gesture.Position);
+                        game.applyOnTouch(gesture.Position);
                         break;
                     default:
                         break;
                 }
             }
-
 
             base.Update(gameTime);
         }
@@ -177,7 +159,7 @@ namespace waronline
 
             foreach (DrawnCard card in cardTextureList)
             {
-                _spriteBatch.Draw(card.Reference, new Vector2(card.X, card.Y), Color.White);
+                _spriteBatch.Draw(card.Reference, new Vector2(card.X, card.Y), null, Color.White, 0, Vector2.Zero, Constants.scale, SpriteEffects.None, 0.0f);
             }
 
             _spriteBatch.End();

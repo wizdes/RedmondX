@@ -35,8 +35,8 @@ namespace waronline
         }
 
         public bool containsPosition(Vector2 position){
-            if (position.X > x && position.X < x + x_size &&
-                position.Y > y && position.Y < y + y_size)
+            if (position.X > x && position.X < x + x_size * Constants.scale &&
+                position.Y > y && position.Y < y + y_size * Constants.scale)
             {
                 return true;
             }

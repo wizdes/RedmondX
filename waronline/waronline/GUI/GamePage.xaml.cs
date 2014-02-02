@@ -14,14 +14,14 @@ namespace waronline
 {
     public partial class GamePage : PhoneApplicationPage
     {
-        private Game1 _game;
+        private gameDriver _game;
 
         // Constructor
         public GamePage()
         {
             InitializeComponent();
 
-            _game = XamlGame<Game1>.Create("", XnaSurface);
+            _game = XamlGame<gameDriver>.Create("", XnaSurface);
 
             // Sample code to localize the ApplicationBar
             //BuildLocalizedApplicationBar();
