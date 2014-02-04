@@ -124,8 +124,12 @@
     <Compile Include="GUI\CommonFunctions.cs" />
     <Compile Include="GUI\GameTemplate.cs" />
     <Compile Include="GUI\GiveMainPlayerCards.cs" />
+    <Compile Include="GUI\GivePlayersCards.cs" />
     <Compile Include="GUI\GUIPlayer.cs" />
+    <Compile Include="GUI\LeftBasicGUIPlayer.cs" />
     <Compile Include="GUI\MainBasicGUIPlayer.cs" />
+    <Compile Include="GUI\RightBasicGUIPlayer.cs" />
+    <Compile Include="GUI\TopBasicGUIPlayer.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -182,6 +186,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Cards\card_background.xnb" />
     <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml">

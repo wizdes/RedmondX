@@ -34,7 +34,7 @@ namespace waronline
 
             TouchPanel.EnabledGestures = GestureType.Tap;
 
-            game = new GiveMainPlayerCards(cardTextureList);
+            game = new GivePlayersCards(cardTextureList);
         }
 
 
