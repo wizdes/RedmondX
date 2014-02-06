@@ -89,6 +89,7 @@ namespace waronline.GameLogic
             currentPhase = Phase.Trading;
             tradeDirection = TradingDirection.Left;
             this.deck = new Deck();
+            this.cardsInPlay = new List<Card>();
 
             // Remove once we are done testing
             this.MockPlayers();
