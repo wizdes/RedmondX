@@ -48,6 +48,11 @@ namespace waronline.GameLogic
                 }
             }
 
+            if (value > 0)
+            {
+                success = true;
+            }
+
             if (Enum.TryParse<Suit>(split[0], out suit) && success)
             {
                 return staticDeck.Where(x => x.Suit == suit && x.Value == value).SingleOrDefault();

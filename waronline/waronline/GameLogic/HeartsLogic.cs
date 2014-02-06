@@ -95,19 +95,6 @@ namespace waronline.GameLogic
             this.MockPlayers();
         }
 
-        public void DealCardsToPlayers()
-        {
-            foreach (Player player in this.players)
-            {
-                for (int i = 0; i < 13; i++)
-                {
-                    player.Hand.Add(this.deck.GetRandomCard());
-                }
-            }
-
-            this.currentPlayer = this.players.Where(x => x.PlayerType == PlayerType.Device).Single();
-        }
-
         public void SetPlayers(List<Player> listOfPlayers)
         {
             this.players = listOfPlayers.OrderBy(x => x.PlayerNumber);
@@ -124,6 +111,18 @@ namespace waronline.GameLogic
             this.players = listOfPlayers.OrderBy(x => x.PlayerNumber);
 
             this.DealCardsToPlayers();
+        }
+        private void DealCardsToPlayers()
+        {
+            foreach (Player player in this.players)
+            {
+                for (int i = 0; i < 13; i++)
+                {
+                    player.Hand.Add(this.deck.GetRandomCard());
+                }
+            }
+
+            this.currentPlayer = this.players.Where(x => x.PlayerType == PlayerType.Device).Single();
         }
     }
 }
