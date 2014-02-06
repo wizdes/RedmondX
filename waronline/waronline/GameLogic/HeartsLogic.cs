@@ -25,10 +25,11 @@ namespace waronline.GameLogic
     {
         private Phase currentPhase;
         private TradingDirection tradeDirection;
-        private List<Player> players;
+        private IOrderedEnumerable<Player> players;
         private Deck deck;
         private List<Card> cardsInPlay;
         private int nonce;
+        private Player currentPlayer;
 
         private static HeartsLogic _instance;
 
@@ -45,7 +46,7 @@ namespace waronline.GameLogic
             }
         }
 
-        public List<Player> Players
+        public IOrderedEnumerable<Player> Players
         {
             get { return this.players; }
         }
@@ -67,7 +68,7 @@ namespace waronline.GameLogic
 
         public void HandleCardPlay(Card card)
         {
-
+            
         }
 
         public void HandleCardPlay(string cardString)
@@ -82,8 +83,10 @@ namespace waronline.GameLogic
         {
             currentPhase = Phase.Trading;
             tradeDirection = TradingDirection.Left;
-            this.players = new List<Player>();
             this.deck = new Deck();
+
+            // Remove once we are done testing
+            this.MockPlayers();
         }
 
         public void DealCardsToPlayers()
@@ -95,6 +98,24 @@ namespace waronline.GameLogic
                     player.Hand.Add(this.deck.GetRandomCard());
                 }
             }
+
+            this.currentPlayer = this.players.Where(x => x.PlayerType == PlayerType.Device).Single();
+        }
+
+        public void SetPlayers(List<Player> listOfPlayers)
+        {
+            this.players = listOfPlayers.OrderBy(x => x.PlayerNumber);
+        }
+
+        private void MockPlayers()
+        {
+            List<Player> listOfPlayers = new List<Player>();
+            listOfPlayers.Add(new Player() { PlayerType = PlayerType.Device, PlayerNumber = 0 });
+            listOfPlayers.Add(new Player() { PlayerType = PlayerType.Network, PlayerNumber = 1 });
+            listOfPlayers.Add(new Player() { PlayerType = PlayerType.Network, PlayerNumber = 2 });
+            listOfPlayers.Add(new Player() { PlayerType = PlayerType.Network, PlayerNumber = 3 });
+
+            this.players = listOfPlayers.OrderBy(x => x.PlayerNumber);
         }
     }
 }
