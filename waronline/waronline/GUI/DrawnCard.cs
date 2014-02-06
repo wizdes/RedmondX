@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Phone.Maps.Controls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using waronline.GameLogic;
 
 namespace waronline
 {
@@ -20,6 +21,7 @@ namespace waronline
         private bool isVisible;
         private bool isMoving;
         private bool isShowingCardFront;
+        private string cardName;
 
         public int X
         {
@@ -53,9 +55,10 @@ namespace waronline
             return false;
         }
 
-        public DrawnCard(Texture2D reference, Texture2D backReference)
+        public DrawnCard(Texture2D reference, Texture2D backReference, string cardName)
         {
             this.reference = reference;
+            this.cardName = cardName;
             this.backReference = backReference;
             isVisible = false;
             isMoving = false;
@@ -93,6 +96,16 @@ namespace waronline
         {
             this.x = x;
             this.y = y;
+        }
+
+        public bool isA(string cardName)
+        {
+            if (cardName.Equals(this.cardName))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

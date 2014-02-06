@@ -34,7 +34,7 @@ namespace waronline
 
             TouchPanel.EnabledGestures = GestureType.Tap;
 
-            game = new GivePlayersCards(cardTextureList);
+            game = new MainGameLogic(cardTextureList);
         }
 
 
@@ -84,7 +84,7 @@ namespace waronline
                 for (int i = 2; i < 11; i++)
                 {
                     string cardName = cardPrefix + "_" + i.ToString();
-                    DrawnCard reference = new DrawnCard(Content.Load<Texture2D>(cardName), backCardTexture2D);
+                    DrawnCard reference = new DrawnCard(Content.Load<Texture2D>(cardName), backCardTexture2D, cardName);
                     cardTextureList.Add(reference);
                     cardTextureMap.Add(cardName, reference);
                 }
@@ -92,7 +92,7 @@ namespace waronline
                 foreach (string specialCardValue in specialCardValues)
                 {
                     string cardName = cardPrefix + "_" + specialCardValue;
-                    DrawnCard reference = new DrawnCard(Content.Load<Texture2D>(cardName), backCardTexture2D);
+                    DrawnCard reference = new DrawnCard(Content.Load<Texture2D>(cardName), backCardTexture2D, cardName);
                     cardTextureList.Add(reference);
                     cardTextureMap.Add(cardName, reference);
                 }
@@ -127,6 +127,8 @@ namespace waronline
 
                 _firstUpdate = false;
             }
+
+            game.updateState();
 
             while (TouchPanel.IsGestureAvailable)
             {

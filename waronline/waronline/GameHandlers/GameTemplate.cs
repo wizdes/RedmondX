@@ -11,6 +11,8 @@ namespace waronline.GUI
     {
         void initCards();
 
+        void updateState();
+
         void applyOnTouch(Vector2 position);
     }
 }

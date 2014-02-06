@@ -109,6 +109,7 @@
     <Compile Include="EditPlayerName.xaml.cs">
       <DependentUpon>EditPlayerName.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GameHandlers\MainGameLogic.cs" />
     <Compile Include="GameLobby.xaml.cs">
       <DependentUpon>GameLobby.xaml</DependentUpon>
     </Compile>
@@ -120,11 +121,12 @@
     <Compile Include="GUITests\GUITest.xaml.cs">
       <DependentUpon>GUITest.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\52CardPickup.cs" />
-    <Compile Include="GUI\CommonFunctions.cs" />
-    <Compile Include="GUI\GameTemplate.cs" />
-    <Compile Include="GUI\GiveMainPlayerCards.cs" />
-    <Compile Include="GUI\GivePlayersCards.cs" />
+    <Compile Include="GameHandlers\52CardPickup.cs" />
+    <Compile Include="CommonFunctions.cs" />
+    <Compile Include="GameHandlers\GameTemplate.cs" />
+    <Compile Include="GameHandlers\GiveMainPlayerCards.cs" />
+    <Compile Include="GameHandlers\GivePlayerCardsCenter.cs" />
+    <Compile Include="GameHandlers\GivePlayersCards.cs" />
     <Compile Include="GUI\GUIPlayer.cs" />
     <Compile Include="GUI\LeftBasicGUIPlayer.cs" />
     <Compile Include="GUI\MainBasicGUIPlayer.cs" />

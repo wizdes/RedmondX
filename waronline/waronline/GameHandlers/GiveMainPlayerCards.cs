@@ -38,6 +38,11 @@ namespace waronline.GUI
             }
         }
 
+        public void updateState()
+        {
+            return;
+        }
+
         public void applyOnTouch(Vector2 position)
         {
             CommonFunctions.removeCardAtPosition(cardTextureList, position);
