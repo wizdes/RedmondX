@@ -163,7 +163,10 @@ namespace waronline
 
             foreach (DrawnCard card in cardTextureList)
             {
-                _spriteBatch.Draw(card.Reference, new Vector2(card.X, card.Y), null, Color.White, 0, Vector2.Zero, Constants.scale, SpriteEffects.None, 0.0f);
+                if (card.IsVisible)
+                {
+                    _spriteBatch.Draw(card.Reference, new Vector2(card.X, card.Y), null, Color.White, 0, Vector2.Zero, Constants.scale, SpriteEffects.None, 0.0f);                    
+                }
             }
 
             _spriteBatch.End();

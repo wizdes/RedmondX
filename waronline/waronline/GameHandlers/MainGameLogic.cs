@@ -40,7 +40,7 @@ namespace waronline.GUI
             int cardsInMiddle = 0;
             foreach (Card card in coreLogic.CardsInPlay)
             {
-                CommonFunctions.moveCardToCenter(cardTextureList, card.ToString(), cardsInMiddle);
+                //CommonFunctions.moveCardToCenter(cardTextureList, card.ToString(), cardsInMiddle++);
             }
 
             int i = 0;
@@ -54,6 +54,7 @@ namespace waronline.GUI
                     Vector2 cardPosition = guiplayer.GivePlayerCard(c.ToString());
                     guiCard.move((int)cardPosition.X, (int)cardPosition.Y);
                     guiCard.IsShowingCardFront = true;
+                    guiCard.IsVisible = true;
                 }
                 i++;
                 
