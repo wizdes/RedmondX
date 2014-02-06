@@ -8,25 +8,55 @@ namespace waronline.GameLogic
 {
     public class Deck
     {
-        private List<Card> deck = new List<Card>();
+        private static List<Card> staticDeck = BuildDeck();
+        private List<Card> deck;
+        private Random random = new Random();
 
         public Deck()
         {
-            foreach (Suit suit in Enum.GetValues(typeof(Suit)))
-            {
-                for (int i = 1; i < 14; i++)
-                {
-                    Card newCard = new Card();
-                    newCard.Value = i;
-                    newCard.Suit = suit;
-                    deck.Add(newCard);
-                }
-            }
+            this.deck = BuildDeck();
         }
 
         public List<Card> Cards
         {
             get { return this.deck; }
+        }
+
+        public Card GetRandomCard()
+        {
+            Card card = deck.ElementAt(random.Next() % deck.Count);
+
+            deck.Remove(card);
+
+            return card;
+        }
+
+        public static Card GetCardFromString(string cardString)
+        {
+            string[] split = cardString.Split('_');
+
+            Suit suit;
+            int value;
+            if (Enum.TryParse<Suit>(split[0], out suit) && int.TryParse(split[1], out value))
+            {
+                return staticDeck.Where(x => x.Suit == suit && x.Value == value).SingleOrDefault();
+            }
+            else
+            {
+                throw new ArgumentException(string.Format("Unrecognized format: {0}", cardString));
+            }
+        }
+
+        public Card GetCardFromDeck(Card card)
+        {
+            if (this.deck.Contains(card))
+            {
+                this.deck.Remove(card);
+
+                return card;
+            }
+
+            throw new InvalidOperationException("Card not found in deck");
         }
 
         // <summary>
@@ -40,20 +70,26 @@ namespace waronline.GameLogic
         // The string representation will look something like this:
         // Heart_10 or Spade_11
         // </remarks>
-        public Card GetCard(string card)
+        public Card GetCardFromDeck(string card)
         {
-            string[] split = card.Split('_');
+            return this.GetCardFromDeck(GetCardFromString(card));
+        }
 
-            Suit suit;
-            int value;
-            if (Enum.TryParse<Suit>(split[0], out suit) && int.TryParse(split[1], out value))
+        private static List<Card> BuildDeck()
+        {
+            List<Card> listOfCard = new List<Card>();
+            foreach (Suit suit in Enum.GetValues(typeof(Suit)))
             {
-                return deck.Where(x => x.Suit == suit && x.Value == value).Single();
+                for (int i = 1; i < 14; i++)
+                {
+                    Card newCard = new Card();
+                    newCard.Value = i;
+                    newCard.Suit = suit;
+                    listOfCard.Add(newCard);
+                }
             }
-            else
-            {
-                throw new ArgumentException(string.Format("Unrecognized format: {0}", card));
-            }
+
+            return listOfCard;
         }
     }
 }
