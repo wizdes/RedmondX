@@ -77,12 +77,14 @@ namespace waronline
                 "ace"
             };
 
+            Texture2D backCardTexture2D = Content.Load<Texture2D>("card_background");
+
             foreach(string cardPrefix in cardType)
             {
                 for (int i = 2; i < 11; i++)
                 {
                     string cardName = cardPrefix + "_" + i.ToString();
-                    DrawnCard reference = new DrawnCard(Content.Load<Texture2D>(cardName));
+                    DrawnCard reference = new DrawnCard(Content.Load<Texture2D>(cardName), backCardTexture2D);
                     cardTextureList.Add(reference);
                     cardTextureMap.Add(cardName, reference);
                 }
@@ -90,7 +92,7 @@ namespace waronline
                 foreach (string specialCardValue in specialCardValues)
                 {
                     string cardName = cardPrefix + "_" + specialCardValue;
-                    DrawnCard reference = new DrawnCard(Content.Load<Texture2D>(cardName));
+                    DrawnCard reference = new DrawnCard(Content.Load<Texture2D>(cardName), backCardTexture2D);
                     cardTextureList.Add(reference);
                     cardTextureMap.Add(cardName, reference);
                 }

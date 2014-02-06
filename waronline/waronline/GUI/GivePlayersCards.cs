@@ -35,24 +35,28 @@ namespace waronline.GUI
                     card.IsVisible = true;
                     Vector2 position = mainPlayer.GivePlayerCard(card.ToString());
                     card.move((int) position.X, (int) position.Y);
+                    card.IsShowingCardFront = true;
                 }
                 else if(i < 26)
                 {
                     card.IsVisible = true;
                     Vector2 position = leftPlayer.GivePlayerCard(card.ToString());
                     card.move((int)position.X, (int)position.Y);
+                    card.IsShowingCardFront = false;
                 }
                 else if (i < 39)
                 {
                     card.IsVisible = true;
                     Vector2 position = rightPlayer.GivePlayerCard(card.ToString());
                     card.move((int)position.X, (int)position.Y);
+                    card.IsShowingCardFront = false;
                 }
                 else
                 {
                     card.IsVisible = true;
                     Vector2 position = topPlayer.GivePlayerCard(card.ToString());
                     card.move((int)position.X, (int)position.Y);
+                    card.IsShowingCardFront = false;
                 }
                 i++;
             }
