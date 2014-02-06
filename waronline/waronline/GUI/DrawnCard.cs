@@ -21,7 +21,7 @@ namespace waronline
         private bool isVisible;
         private bool isMoving;
         private bool isShowingCardFront;
-        private string cardName;
+        public string cardName;
 
         public int X
         {

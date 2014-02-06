@@ -67,6 +67,19 @@ namespace waronline
             }
         }
 
+        public static DrawnCard GetCardByPosition(List<DrawnCard> cardTextureList, Vector2 position)
+        {
+            DrawnCard cardByName = null;
+            foreach (DrawnCard card in cardTextureList)
+            {
+                if (card.containsPosition(position))
+                {
+                    cardByName = card;
+                }
+            }
+            return cardByName;
+        }
+
         public static void removeCard(DrawnCard card)
         {
             card.IsVisible = false;

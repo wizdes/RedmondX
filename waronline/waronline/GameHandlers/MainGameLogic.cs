@@ -23,7 +23,11 @@ namespace waronline.GUI
         public MainGameLogic(List<DrawnCard> cardTextureList)
         {
             this.cardTextureList = cardTextureList;
-            guiPlayers =new List<GUIPlayer>();
+        }
+
+        public void initCards()
+        {
+            guiPlayers = new List<GUIPlayer>();
             mainPlayer = new MainBasicGUIPlayer();
             leftPlayer = new LeftBasicGUIPlayer();
             rightPlayer = new RightBasicGUIPlayer();
@@ -32,10 +36,6 @@ namespace waronline.GUI
             guiPlayers.Add(leftPlayer);
             guiPlayers.Add(rightPlayer);
             guiPlayers.Add(topPlayer);
-        }
-
-        public void initCards()
-        {
             coreLogic = GameLogic.HeartsLogic.Instance;
             int cardsInMiddle = 0;
             foreach (Card card in coreLogic.CardsInPlay)
@@ -68,7 +68,7 @@ namespace waronline.GUI
 
         public void applyOnTouch(Vector2 position)
         {
-            coreLogic.HandleCardPlay("boop");
+            coreLogic.HandleCardPlay(CommonFunctions.GetCardByPosition(cardTextureList, position).cardName);
         }
     }
 }
