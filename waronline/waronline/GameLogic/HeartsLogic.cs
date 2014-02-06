@@ -66,14 +66,19 @@ namespace waronline.GameLogic
             
         }
 
-        public void HandleCardPlay(Card card)
-        {
-            
-        }
-
         public void HandleCardPlay(string cardString)
         {
             this.HandleCardPlay(Deck.GetCardFromString(cardString));
+        }
+
+        private void HandleCardPlay(Card card)
+        {
+            if (currentPlayer.Hand.Contains(card))
+            {
+                currentPlayer.Hand.Remove(card);
+                cardsInPlay.Add(card);
+                nonce++;
+            }
         }
 
         // <summary>

@@ -25,7 +25,7 @@ namespace waronline.GameLogic
         // <summary>
         // Reset to a point that would be considered the "beginning" of the game.
         // </summary>
-        public abstract void Reset();
+        public abstract void Initialize();
 
         protected virtual void RaiseSendMessageEvent(IMessage message)
         {
