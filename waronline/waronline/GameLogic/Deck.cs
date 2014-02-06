@@ -37,7 +37,18 @@ namespace waronline.GameLogic
 
             Suit suit;
             int value;
-            if (Enum.TryParse<Suit>(split[0], out suit) && int.TryParse(split[1], out value))
+            SpecialName specialName;
+            bool success = false;
+            if (!int.TryParse(split[1], out value))
+            {
+                if (Enum.TryParse<SpecialName>(split[1], true, out specialName))
+                {
+                    success = true;
+                    value = (int)specialName;
+                }
+            }
+
+            if (Enum.TryParse<Suit>(split[0], out suit) && success)
             {
                 return staticDeck.Where(x => x.Suit == suit && x.Value == value).SingleOrDefault();
             }

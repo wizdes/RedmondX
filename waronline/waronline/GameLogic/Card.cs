@@ -16,11 +16,11 @@ namespace waronline.GameLogic
 
     public enum SpecialName
     {
-        None,
-        Ace,
-        Jack,
-        Queen,
-        King
+        None = 0,
+        Ace = 1,
+        Jack = 11,
+        Queen = 12,
+        King = 13
     }
 
     public class Card

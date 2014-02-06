@@ -122,6 +122,8 @@ namespace waronline.GameLogic
             listOfPlayers.Add(new Player() { PlayerType = PlayerType.Network, PlayerNumber = 3 });
 
             this.players = listOfPlayers.OrderBy(x => x.PlayerNumber);
+
+            this.DealCardsToPlayers();
         }
     }
 }
