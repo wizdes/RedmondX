@@ -8,9 +8,14 @@ namespace waronline.GameLogic
 {
     public class Deck
     {
-        private static List<Card> staticDeck = BuildDeck();
+        private static List<Card> staticDeck;
         private List<Card> deck;
         private Random random = new Random();
+
+        static Deck()
+        {
+            staticDeck = BuildDeck();
+        }
 
         public Deck()
         {
