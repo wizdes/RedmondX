@@ -73,6 +73,12 @@ namespace waronline.GameLogic
             return (c1.Suit != c2.Suit) || (c1.Value != c2.Value);
         }
 
+        public override string ToString()
+        {
+            string secondPart = (this.SpecialName == SpecialName.None) ? this.Value.ToString() : this.SpecialName.ToString().ToLower();
+            return string.Format("{0}_{1}", this.Suit, secondPart);
+        }
+
         public override bool Equals(object obj)
         {
             if (obj == null || !(obj is Card))
