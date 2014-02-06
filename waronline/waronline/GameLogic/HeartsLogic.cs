@@ -28,6 +28,7 @@ namespace waronline.GameLogic
         private List<Player> players;
         private Deck deck;
         private List<Card> cardsInPlay;
+        private int nonce;
 
         private static HeartsLogic _instance;
 
@@ -52,6 +53,11 @@ namespace waronline.GameLogic
         public List<Card> CardsInPlay
         {
             get { return this.cardsInPlay; }
+        }
+
+        public int Nonce
+        {
+            get { return this.nonce; }
         }
 
         public override void HandleMessage(IMessage message)
