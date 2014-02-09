@@ -9,14 +9,12 @@ namespace waronline.GUI
 {
     class _52CardPickup : GameTemplate
     {
-        private List<DrawnCard> cardTextureList;
-
         public _52CardPickup(List<DrawnCard> cardTextureList)
         {
             this.cardTextureList = cardTextureList;
         }
 
-        public void initCards()
+        public override void initCards()
         {
             Random r = new Random();
             foreach (DrawnCard card in cardTextureList)
@@ -26,12 +24,12 @@ namespace waronline.GUI
             }
         }
 
-        public void updateState()
+        public override void updateState()
         {
             return;
         }
 
-        public void applyOnTouch(Vector2 position)
+        public override void applyOnTouch(Vector2 position)
         {
             CommonFunctions.removeCardAtPosition(cardTextureList, position);
         }

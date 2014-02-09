@@ -9,7 +9,6 @@ namespace waronline.GUI
 {
     class GivePlayersCards : GameTemplate
     {
-        private List<DrawnCard> cardTextureList;
         private GUIPlayer mainPlayer;
         private GUIPlayer leftPlayer;
         private GUIPlayer rightPlayer;
@@ -22,9 +21,9 @@ namespace waronline.GUI
             leftPlayer  = new LeftBasicGUIPlayer();
             rightPlayer = new RightBasicGUIPlayer();
             topPlayer   = new TopBasicGUIPlayer();
-
         }
-        public void initCards()
+
+        public override void initCards()
         {
             Random r = new Random();
             int i = 0;
@@ -62,12 +61,12 @@ namespace waronline.GUI
             }
         }
 
-        public void updateState()
+        public override void updateState()
         {
             return;
         }
 
-        public void applyOnTouch(Vector2 position)
+        public override void applyOnTouch(Vector2 position)
         {
             CommonFunctions.removeCardAtPosition(cardTextureList, position);
         }

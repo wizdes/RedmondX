@@ -7,10 +7,26 @@ using Microsoft.Xna.Framework;
 
 namespace waronline.GUI
 {
-    interface GUIPlayer
+    abstract class GUIPlayer
     {
-        Vector2 GivePlayerCard(string key);
 
-        void removeCard(string key);
+        internal List<string> cards;
+
+        public GUIPlayer()
+        {
+            cards = new List<string>();
+        }
+
+        public abstract Vector2 GivePlayerCard(string key);
+
+        protected void addKey(string key)
+        {
+            this.cards.Add(key);
+        }
+
+        virtual public void removeCard(string key)
+        {
+            this.cards.Remove(key);
+        }
     }
 }

@@ -9,21 +9,16 @@ namespace waronline.GUI
 {
     class LeftBasicGUIPlayer : GUIPlayer
     {
-        private int baseY = (int)((110 + 20) * Constants.scale);
-        private int addY = (int)Math.Ceiling((30 + 10) * Constants.scale);
-        private int baseX = 15;
+        static private int baseY = (int)((110 + 20) * Constants.scale);
+        static private int addY = (int)Math.Ceiling((30 + 10) * Constants.scale);
+        static private int baseX = 15;
 
         private int cardPosition = 0;
 
-        public Vector2 GivePlayerCard(string key)
+        public override Vector2 GivePlayerCard(string key)
         {
+            base.addKey(key);
             return new Vector2(baseX, baseY + cardPosition++ * addY);
         }
-
-        public void removeCard(string key)
-        {
-            return;
-        }
-
     }
 }

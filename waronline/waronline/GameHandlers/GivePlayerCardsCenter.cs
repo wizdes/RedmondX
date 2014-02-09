@@ -9,7 +9,6 @@ namespace waronline.GUI
 {
     class GivePlayerCardsCenter : GameTemplate
     {
-        private List<DrawnCard> cardTextureList;
         private GUIPlayer mainPlayer;
         private GUIPlayer leftPlayer;
         private GUIPlayer rightPlayer;
@@ -24,7 +23,7 @@ namespace waronline.GUI
             topPlayer = new TopBasicGUIPlayer();
 
         }
-        public void initCards()
+        public override void initCards()
         {
             Random r = new Random();
             int i = 0;
@@ -62,7 +61,7 @@ namespace waronline.GUI
             }
         }
 
-        public void updateState()
+        public override void updateState()
         {
             return;
         }
@@ -70,7 +69,7 @@ namespace waronline.GUI
         private int cardsInCenter = 0;
         private List<DrawnCard> actualCardInCenter = new List<DrawnCard>(); 
 
-        public void applyOnTouch(Vector2 position)
+        public override void applyOnTouch(Vector2 position)
         {
             if (cardsInCenter == 4)
             {

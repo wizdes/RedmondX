@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using waronline.GameLogic;
 
 namespace waronline.GUI
 {
     class MainGameLogic : GameTemplate
     {
-        private List<DrawnCard> cardTextureList;
         private GUIPlayer mainPlayer;
         private GUIPlayer leftPlayer;
         private GUIPlayer rightPlayer;
@@ -19,13 +19,21 @@ namespace waronline.GUI
         private List<GUIPlayer> guiPlayers;
 
         private GameLogic.HeartsLogic coreLogic;
+        private Dictionary<string, DrawnCard> cardTextureMap;
 
-        public MainGameLogic(List<DrawnCard> cardTextureList)
+        public MainGameLogic(List<DrawnCard> cardTextureList, Dictionary<string, DrawnCard> cardTextureMap)
         {
             this.cardTextureList = cardTextureList;
+            this.cardTextureMap = cardTextureMap;
         }
 
-        public void initCards()
+        public override void initCards()
+        {
+            coreLogic = GameLogic.HeartsLogic.Instance;
+            updateState();
+        }
+
+        public override void updateState()
         {
             guiPlayers = new List<GUIPlayer>();
             mainPlayer = new MainBasicGUIPlayer();
@@ -36,11 +44,10 @@ namespace waronline.GUI
             guiPlayers.Add(leftPlayer);
             guiPlayers.Add(rightPlayer);
             guiPlayers.Add(topPlayer);
-            coreLogic = GameLogic.HeartsLogic.Instance;
             int cardsInMiddle = 0;
             foreach (Card card in coreLogic.CardsInPlay)
             {
-                //CommonFunctions.moveCardToCenter(cardTextureList, card.ToString(), cardsInMiddle++);
+                CommonFunctions.moveCardToCenter(cardTextureList, card.ToString(), cardsInMiddle++);
             }
 
             int i = 0;
@@ -53,22 +60,47 @@ namespace waronline.GUI
                     DrawnCard guiCard = CommonFunctions.GetCardByCardName(this.cardTextureList, c.ToString());
                     Vector2 cardPosition = guiplayer.GivePlayerCard(c.ToString());
                     guiCard.move((int)cardPosition.X, (int)cardPosition.Y);
-                    guiCard.IsShowingCardFront = true;
+                    guiCard.IsShowingCardFront = false;
                     guiCard.IsVisible = true;
+
+                    // the main player will show the card's front
+                    if (i == 0)
+                    {
+                        guiCard.IsShowingCardFront = true;
+                    }
                 }
+
                 i++;
-                
             }
         }
 
-        public void updateState()
-        {
-            initCards();
-        }
-
-        public void applyOnTouch(Vector2 position)
+        public override void applyOnTouch(Vector2 position)
         {
             coreLogic.HandleCardPlay(CommonFunctions.GetCardByPosition(cardTextureList, position).cardName);
+        }
+
+        public override void draw(SpriteBatch _spriteBatch)
+        {
+
+            foreach (GUIPlayer player in guiPlayers)
+            {
+                foreach (string cardKey in player.cards)
+                {
+                    DrawnCard card = cardTextureMap[cardKey];
+                    if (card.IsVisible)
+                    {
+                        _spriteBatch.Draw(card.Reference, new Vector2(card.X, card.Y), null, Color.White, 0, Vector2.Zero, Constants.scale, SpriteEffects.None, 0.0f);
+                    }
+                }
+            }
+
+            //foreach (DrawnCard card in cardTextureList)
+            //{
+            //    if (card.IsVisible)
+            //    {
+            //        _spriteBatch.Draw(card.Reference, new Vector2(card.X, card.Y), null, Color.White, 0, Vector2.Zero, Constants.scale, SpriteEffects.None, 0.0f);
+            //    }
+            //}               
         }
     }
 }

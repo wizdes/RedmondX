@@ -18,8 +18,6 @@ namespace waronline
         SpriteBatch _spriteBatch;
         private List<DrawnCard> cardTextureList;
         private Dictionary<string, DrawnCard> cardTextureMap;
-        private int x = 0;
-        private int y = 0;
         private bool _firstUpdate = true;
 
         private GameTemplate game;
@@ -34,10 +32,8 @@ namespace waronline
 
             TouchPanel.EnabledGestures = GestureType.Tap;
 
-            game = new MainGameLogic(cardTextureList);
+            game = new MainGameLogic(cardTextureList, cardTextureMap);
         }
-
-
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -155,19 +151,9 @@ namespace waronline
         {
             GraphicsDevice.Clear(Color.ForestGreen);
 
-            Vector2 position = new Vector2(x, y);
-
             _spriteBatch.Begin();
 
-            //_spriteBatch.Draw(_spriteTexture, position, Color.White);
-
-            foreach (DrawnCard card in cardTextureList)
-            {
-                if (card.IsVisible)
-                {
-                    _spriteBatch.Draw(card.Reference, new Vector2(card.X, card.Y), null, Color.White, 0, Vector2.Zero, Constants.scale, SpriteEffects.None, 0.0f);                    
-                }
-            }
+            game.draw(_spriteBatch);
 
             _spriteBatch.End();
 

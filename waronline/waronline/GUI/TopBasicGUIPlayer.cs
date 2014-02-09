@@ -10,21 +10,16 @@ namespace waronline.GUI
 {
     class TopBasicGUIPlayer : GUIPlayer
     {
-        private int baseY = 5;
-        private int addX = (int)Math.Ceiling((30 + 10) * Constants.scale);
-        private int baseX = 15;
+        static private int baseY = 5;
+        static private int addX = (int)Math.Ceiling((30 + 10) * Constants.scale);
+        static private int baseX = 15;
 
         private int cardPosition = 0;
 
-        public Vector2 GivePlayerCard(string key)
+        public override Vector2 GivePlayerCard(string key)
         {
+            base.addKey(key);
             return new Vector2(baseX + cardPosition++ * addX, baseY);
         }
-
-        public void removeCard(string key)
-        {
-            return;
-        }
-
     }
 }
