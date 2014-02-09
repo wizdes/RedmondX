@@ -82,7 +82,10 @@ namespace waronline.GUI
         public override void applyOnTouch(Vector2 position)
         {
             DrawnCard cardTouched = CommonFunctions.GetCardByPosition(cardTextureList, position);
-            coreLogic.HandleCardPlay(cardTouched.cardName);
+            if (cardTouched != null)
+            {
+                coreLogic.HandleCardPlay(cardTouched.cardName);                
+            }
         }
 
         public override void draw(SpriteBatch _spriteBatch)
