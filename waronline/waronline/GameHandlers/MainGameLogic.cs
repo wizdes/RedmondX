@@ -21,8 +21,11 @@ namespace waronline.GUI
         private GameLogic.HeartsLogic coreLogic;
         private Dictionary<string, DrawnCard> cardTextureMap;
 
+        private List<string> centerCardList; 
+
         public MainGameLogic(List<DrawnCard> cardTextureList, Dictionary<string, DrawnCard> cardTextureMap)
         {
+            this.centerCardList = new List<string>();
             this.cardTextureList = cardTextureList;
             this.cardTextureMap = cardTextureMap;
         }
@@ -45,9 +48,11 @@ namespace waronline.GUI
             guiPlayers.Add(rightPlayer);
             guiPlayers.Add(topPlayer);
             int cardsInMiddle = 0;
+            centerCardList.Clear();
             foreach (Card card in coreLogic.CardsInPlay)
             {
                 CommonFunctions.moveCardToCenter(cardTextureList, card.ToString(), cardsInMiddle++);
+                centerCardList.Add(card.ToString());
             }
 
             int i = 0;
@@ -92,6 +97,15 @@ namespace waronline.GUI
                         _spriteBatch.Draw(card.Reference, new Vector2(card.X, card.Y), null, Color.White, 0, Vector2.Zero, Constants.scale, SpriteEffects.None, 0.0f);
                     }
                 }
+            }
+
+            foreach (string cardKey in centerCardList)
+            {
+                DrawnCard card = cardTextureMap[cardKey];
+                if (card.IsVisible)
+                {
+                    _spriteBatch.Draw(card.Reference, new Vector2(card.X, card.Y), null, Color.White, 0, Vector2.Zero, Constants.scale, SpriteEffects.None, 0.0f);
+                }                
             }
 
             //foreach (DrawnCard card in cardTextureList)
