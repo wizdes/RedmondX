@@ -80,12 +80,18 @@ namespace waronline.GameLogic
                 nonce++;
             }
 
+            // send message
+            // this doesn't do anything right now.
+
+            // handle AI
+
             if (cardsInPlay.Count == 4)
             {
                 // do additonal setting to get the animation/wait/then remove animation
                 cardsInPlay.Clear();
                 nonce++;
             }
+
         }
 
         // <summary>
