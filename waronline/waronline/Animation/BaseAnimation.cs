@@ -10,11 +10,15 @@ namespace waronline.Animation
 {
     class BaseAnimation
     {
-        private DoubleAnimation animationSource;
+        private BaseAnimation nextAnimation;
+
+        public void AddNextAnimation(BaseAnimation ba)
+        {
+            nextAnimation = ba;
+        }
 
         public BaseAnimation()
         {
-            animationSource = new DoubleAnimation();
         }
 
     }
