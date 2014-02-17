@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media.Animation;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using waronline.Animation;
 using waronline.GameLogic;
+using Point = System.Windows.Point;
 
 namespace waronline.GUI
 {
@@ -48,14 +52,17 @@ namespace waronline.GUI
             guiPlayers.Add(rightPlayer);
             guiPlayers.Add(topPlayer);
             int cardsInMiddle = 0;
-            centerCardList.Clear();
-            foreach (Card card in coreLogic.CardsInPlay)
-            {
-                CommonFunctions.moveCardToCenter(cardTextureList, card.ToString(), cardsInMiddle++);
-                centerCardList.Add(card.ToString());
-            }
 
             int i = 0;
+
+            // handle the animation 
+            foreach (BaseAnimation animation in DynamicStoryboard.getInstance().StoryboardAnimations)
+            {
+                animation.DoAnimation();
+            }
+
+            DynamicStoryboard.getInstance()
+                .StoryboardAnimations.RemoveAll(animation => animation.isAnimationOver == true);
 
             foreach (Player p in coreLogic.Players)
             {
@@ -76,6 +83,50 @@ namespace waronline.GUI
                 }
 
                 i++;
+            }
+
+            // no cards have been played, you're done
+            if (centerCardList.Count == coreLogic.CardsInPlay.Count)
+            {
+                return;
+            }
+
+            //centerCardList.Clear();
+
+            int centerCount = 0;
+
+            // only call this if a card has been played 
+            foreach (Card card in coreLogic.CardsInPlay)
+            {
+                if (centerCount++ < centerCardList.Count)
+                {
+                    continue;
+                }
+
+                DrawnCard GuiCard = CommonFunctions.GetCardByCardName(cardTextureList, card.ToString());
+                GuiCard.IsVisible = true;
+                GuiCard.IsShowingCardFront = true;
+                DynamicStoryboard.getInstance().AddAnimation(
+                    new MoveAnimation(
+                        GuiCard,
+                        new Point(GuiCard.X, GuiCard.Y),
+                        CommonFunctions.MoveCardToCenterGetPosition(centerCardList.Count)));
+                centerCardList.Add(card.ToString());
+            }
+
+            if (coreLogic.CardsInPlay.Count == 4)
+            {
+                coreLogic.CardsInPlay.Clear();
+                foreach (string card in centerCardList)
+                {
+                    DrawnCard GuiCard = CommonFunctions.GetCardByCardName(cardTextureList, card.ToString());
+                    DynamicStoryboard.getInstance().AddAnimation(
+                        new MoveAnimation(
+                            GuiCard,
+                            new Point(GuiCard.X, GuiCard.Y),
+                            new Point(-100, -100)));
+                }
+                centerCardList.Clear();
             }
         }
 

@@ -12,6 +12,11 @@ namespace waronline.Animation
 
         private static List<BaseAnimation> animations;
 
+        public List<BaseAnimation> StoryboardAnimations
+        {
+            get { return animations; }
+        }
+
         private DynamicStoryboard()
         {
             animations = new List<BaseAnimation>();

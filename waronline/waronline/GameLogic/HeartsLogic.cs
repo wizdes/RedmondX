@@ -71,13 +71,18 @@ namespace waronline.GameLogic
             this.HandleCardPlay(Deck.GetCardFromString(cardString));
         }
 
+        internal void addCardToPlay(Card card)
+        {
+            currentPlayer.Hand.Remove(card);
+            cardsInPlay.Add(card);
+            nonce++;            
+        }
+
         private void HandleCardPlay(Card card)
         {
             if (currentPlayer.Hand.Contains(card))
             {
-                currentPlayer.Hand.Remove(card);
-                cardsInPlay.Add(card);
-                nonce++;
+                addCardToPlay(card);
             }
 
             // send message
@@ -88,7 +93,7 @@ namespace waronline.GameLogic
             if (cardsInPlay.Count == 4)
             {
                 // do additonal setting to get the animation/wait/then remove animation
-                cardsInPlay.Clear();
+                //cardsInPlay.Clear();
                 nonce++;
             }
 

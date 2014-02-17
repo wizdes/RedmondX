@@ -5,6 +5,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Point = System.Windows.Point;
 
 namespace waronline
 {
@@ -24,10 +25,16 @@ namespace waronline
             {
                 cardToRemove.IsVisible = true;
                 cardToRemove.IsShowingCardFront = true;
-                cardToRemove.move(100 + cardsInCenter * 80, 300);
+                Point newCenterPoint = MoveCardToCenterGetPosition(cardsInCenter);
+                cardToRemove.move((int) newCenterPoint.X, (int) newCenterPoint.Y);
             }
 
             return cardToRemove;
+        }
+
+        internal static Point MoveCardToCenterGetPosition(int cardsInCenter)
+        {
+            return new Point(100 + cardsInCenter * 80, 300);
         }
 
         internal static DrawnCard moveCardToCenter(List<DrawnCard> cardTextureList, Vector2 position, int cardsInCenter)

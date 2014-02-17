@@ -10,10 +10,15 @@ using waronline.GameLogic;
 
 namespace waronline
 {
-    class DrawnCard
+    public class SpriteMovable
     {
-        private int x;
-        private int y;
+        internal int x;
+        internal int y;
+    }
+
+
+    class DrawnCard : SpriteMovable
+    {
         private int x_size = 75;
         private int y_size = 110;
         private Texture2D reference;

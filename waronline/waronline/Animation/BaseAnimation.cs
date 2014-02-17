@@ -8,10 +8,11 @@ using System.Windows.Media.Animation;
 
 namespace waronline.Animation
 {
-    class BaseAnimation
+    abstract class BaseAnimation
     {
         private BaseAnimation nextAnimation;
-
+        public bool isAnimationOver;
+        
         public void AddNextAnimation(BaseAnimation ba)
         {
             nextAnimation = ba;
@@ -20,6 +21,8 @@ namespace waronline.Animation
         public BaseAnimation()
         {
         }
+
+        public abstract void DoAnimation();
 
     }
 }

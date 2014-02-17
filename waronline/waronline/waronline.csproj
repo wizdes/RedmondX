@@ -93,6 +93,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Animation\BaseAnimation.cs" />
+    <Compile Include="Animation\DynamicStoryboard.cs" />
+    <Compile Include="Animation\MoveAnimation.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -110,7 +112,7 @@
     <Compile Include="EditPlayerName.xaml.cs">
       <DependentUpon>EditPlayerName.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GameHandlers\MainGameLogic.cs" />
+    <Compile Include="GameHandlers\GUIHeartsLogic.cs" />
     <Compile Include="GameLobby.xaml.cs">
       <DependentUpon>GameLobby.xaml</DependentUpon>
     </Compile>
